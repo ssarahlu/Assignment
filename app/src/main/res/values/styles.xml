@@ -8,4 +8,61 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="let_s_get_s">
+
+        <item name="android:textSize">
+            22sp
+        </item>
+
+        <item name="android:textColor">#817B7B</item>
+
+    </style>
+
+    <style name="no_experien">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B9B4B4
+        </item>
+
+    </style>
+
+    <style name="some_experi">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B9B4B4
+        </item>
+
+    </style>
+
+    <style name="considerabl">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B9B4B4
+        </item>
+
+    </style>
+
+    <style name="rhythm">
+
+        <item name="android:textSize">
+            18sp
+        </item>
+
+        <item name="android:textColor">
+            #817B7B
+        </item>
+
+    </style>
 </resources>

@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Assignment</string>
+    <string name="let_s_get_s">
+I have...
+</string>
+
+    <string name="no_experien">
+
+No experience with music theory
+</string>
+
+    <string name="some_experi">
+
+Some experience with music theory
+</string>
+
+    <string name="considerabl">
+
+Considerable experience with music theory
+</string>
+
+
 </resources>
