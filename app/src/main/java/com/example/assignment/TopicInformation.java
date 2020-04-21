@@ -65,16 +65,24 @@ public class TopicInformation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (i > mInfo.size()) {
+                if (i >= mInfo.size()) {
+                    System.out.println(i >= mInfo.size());
                     next.setVisibility(View.GONE);
-                    previous.setVisibility(View.GONE);
+                    previous.setVisibility(View.VISIBLE);
                     info.setText("You have finished your learning");
                     image.setImageResource(R.drawable.tick);
+                    position.setText("");
+                    i = mInfo.size() + 1;
+                } else {
+                    information = mInfo.get(i);
+                    info.setText(information.getInformation());
+                    image.setImageResource(information.getPicture());
+                    previous.setVisibility(View.VISIBLE);
                     position.setText(i + 1 + "/" + mInfo.size());
-                    i = 1;
+                    i++;
                 }
 
-                if (i == 0 || (i + 1) == 0) {
+                if (i == 1 || (i + 1) == 0) {
                     previous.setVisibility(View.GONE);
                     information = mInfo.get(0);
                     info.setText(information.getInformation());
@@ -82,13 +90,6 @@ public class TopicInformation extends AppCompatActivity {
                     position.setText(i + 1 + "/" + mInfo.size());
                 }
 
-                System.out.println("next " + i);
-                information = mInfo.get(i);
-                info.setText(information.getInformation());
-                image.setImageResource(information.getPicture());
-                previous.setVisibility(View.VISIBLE);
-                position.setText(i + 1 + "/" + mInfo.size());
-                i++;
 
             }
         });
@@ -97,30 +98,27 @@ public class TopicInformation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (i > mInfo.size()) {
-                    next.setVisibility(View.GONE);
-                    previous.setVisibility(View.GONE);
-                    info.setText("You have finished your learning");
-                    image.setImageResource(R.drawable.tick);
-                    position.setText(i + 1 + "/" + mInfo.size());
-                    i = 1;
-                }
-
                 if (i == 0 || (i - 2) == 0) {
                     previous.setVisibility(View.GONE);
                     information = mInfo.get(0);
                     info.setText(information.getInformation());
                     image.setImageResource(information.getPicture());
-                    position.setText(i + 1 + "/" + mInfo.size());
+                    System.out.println("Setting line 106");
+                    i = 1;
+                    position.setText(i + "/" + mInfo.size());
+                } else {
+                    System.out.println("previous " + (i - 2));
+                    information = mInfo.get(i - 2);
+                    info.setText(information.getInformation());
+                    image.setImageResource(information.getPicture());
+                    next.setVisibility(View.VISIBLE);
+                    previous.setVisibility(View.VISIBLE);
+                    System.out.println("Setting line 114");
+                    position.setText(i - 1 + "/" + mInfo.size());
+                    i--;
                 }
 
-                System.out.println("previous " + (i - 2));
-                information = mInfo.get(i - 2);
-                info.setText(information.getInformation());
-                image.setImageResource(information.getPicture());
-                previous.setVisibility(View.VISIBLE);
-                position.setText(i - 1 + "/" + mInfo.size());
-                i--;
+
             }
         });
 
