@@ -55,6 +55,7 @@ public class TopicsActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, position);
         Topic topic = mTopics.get(position);
         intent.putExtra("Topic", topic.getTopic());
+        intent.putExtra("id", String.valueOf(topic.getId()));
         startActivity(intent);
 
     }

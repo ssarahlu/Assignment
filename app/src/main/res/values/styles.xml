@@ -65,4 +65,30 @@
         </item>
 
     </style>
+
+    <style name="title">
+
+        <item name="android:textSize">
+            24sp
+        </item>
+
+        <item name="android:textColor">
+            #817B7B
+        </item>
+
+    </style>
+
+    <style name="this_is_a_s">
+
+        <item name="android:textSize">
+            18sp
+        </item>
+
+        <item name="android:textColor">
+            #817B7B
+        </item>
+
+    </style>
+
+
 </resources>

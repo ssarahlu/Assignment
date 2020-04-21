@@ -4,28 +4,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import android.os.Handler;
+import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private static int SPLASH_SCREEN_TIME_OUT = 2000;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        button = findViewById(R.id.button);
+        getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.splash_screen);
+
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
+            public void run() {
+                Intent intent = new Intent(MainActivity.this,
+                        LoginActivity.class);
+
                 startActivity(intent);
 
+                finish();
             }
-        });
+        }, SPLASH_SCREEN_TIME_OUT);
     }
+
+
 }

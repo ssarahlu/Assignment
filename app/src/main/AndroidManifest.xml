@@ -12,6 +12,7 @@
         <activity android:name=".TopicsActivity"></activity>
         <activity android:name=".TopicInformation" />
         <activity android:name=".SelectDifficulty" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
