@@ -19,7 +19,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Topic> mTopic;
     private RecyclerViewClickListener mListener;
     private Context context;
-    private Topic top;
 
     public MyAdapter(ArrayList<Topic> topics, RecyclerViewClickListener listener) {
         mTopic = topics;
