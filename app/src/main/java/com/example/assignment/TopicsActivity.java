@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.assignment.Entities.Topic;
 
@@ -19,6 +21,8 @@ public class TopicsActivity extends AppCompatActivity {
     private static final String TAG = "Topic";
     public static final String EXTRA_MESSAGE = "topic_id";
     private ArrayList<Topic> mTopics = new ArrayList<>();
+    private String upperString;
+    private String difficulty = "";
 
 
     @Override
@@ -28,9 +32,23 @@ public class TopicsActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);
         Intent intent = getIntent();
-        String difficulty = intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE);
-        String upperString = difficulty.substring(0, 1).toUpperCase() + difficulty.substring(1).toLowerCase();
-        setTitle(upperString + " Courses");
+
+        if (intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE) != null) {
+            difficulty = intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE);
+            upperString = difficulty.substring(0, 1).toUpperCase() + difficulty.substring(1).toLowerCase();
+            Log.d(TAG, "onCreate SELECT DIFFICULTY : " + difficulty + " " + upperString);
+            setTitle(upperString + " Courses");
+
+        } else if (intent.getStringExtra(TopicInformation.EXTRA_MESSAGE) != null) {
+            difficulty = intent.getStringExtra(TopicInformation.EXTRA_MESSAGE).toLowerCase();
+            upperString = difficulty.substring(0, 1).toUpperCase() + difficulty.substring(1).toLowerCase();
+            Log.d(TAG, "onCreate TOPIC INFORMATION  : " + difficulty + " " + upperString);
+            setTitle(upperString + " Courses");
+
+        } else {
+            difficulty = "Not courses found. Please reload the app.";
+            setTitle(difficulty);
+        }
 
         for (Topic t : Topic.getTopics()) {
             if (t.getDifficulty().equals(difficulty)) {
@@ -43,6 +61,8 @@ public class TopicsActivity extends AppCompatActivity {
         MyAdapter.RecyclerViewClickListener listener = new MyAdapter.RecyclerViewClickListener() {
             public void onClick(View view, int position) {
                 launchTopics(position);
+                Topic topic = mTopics.get(position);
+                Toast.makeText(getApplicationContext(), topic.getTopic() + " is selected!", Toast.LENGTH_SHORT).show();
             }
         };
         mAdapter = new MyAdapter(mTopics, listener);
@@ -51,11 +71,12 @@ public class TopicsActivity extends AppCompatActivity {
 
 
     private void launchTopics(int position) {
+        Topic topic = mTopics.get(position);
         Intent intent = new Intent(this, TopicInformation.class);
         intent.putExtra(EXTRA_MESSAGE, position);
-        Topic topic = mTopics.get(position);
         intent.putExtra("Topic", topic.getTopic());
         intent.putExtra("id", String.valueOf(topic.getId()));
+        intent.putExtra("upperString", upperString);
         startActivity(intent);
 
     }

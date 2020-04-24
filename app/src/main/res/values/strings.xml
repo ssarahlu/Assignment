@@ -18,6 +18,20 @@ Some experience with music theory
 
 Considerable experience with music theory
 </string>
+    <string name="welcome_bac">
+
+Welcome back!
+</string>
+
+    <string name="log_in_with">
+
+Log in with your email and password
+</string>
+
+    <string name="log_in">
+
+Log in
+</string>
 
 
 </resources>

@@ -1,13 +1,11 @@
 package com.example.assignment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +14,13 @@ import com.example.assignment.Entities.Topic;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private ArrayList<Topic> mTopic;
+    private ArrayList<Topic> mTopics;
     private RecyclerViewClickListener mListener;
     private Context context;
+    private Topic mTopic;
 
     public MyAdapter(ArrayList<Topic> topics, RecyclerViewClickListener listener) {
-        mTopic = topics;
+        mTopics = topics;
         mListener = listener;
     }
 
@@ -59,15 +58,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Topic topic = mTopic.get(position);
-        holder.topic.setText(topic.getTopic());
+        mTopic = mTopics.get(position);
+        holder.topic.setText(mTopic.getTopic());
         holder.tick.setImageResource(R.drawable.tick);
-        Toast.makeText(context, topic.getTopic() + " is selected!", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public int getItemCount() {
-        return mTopic.size();
+        return mTopics.size();
     }
 
 }

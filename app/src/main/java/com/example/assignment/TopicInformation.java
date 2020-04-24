@@ -5,15 +5,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.assignment.Entities.Information;
 import com.example.assignment.Entities.Topic;
@@ -32,6 +30,9 @@ public class TopicInformation extends AppCompatActivity {
     private static int i = 1;
     ConstraintSet constraintSet;
     ConstraintLayout constraintLayout;
+    public static final String EXTRA_MESSAGE = "topic_id";
+    private String upperString;
+    private static final String TAG = "TopicInformation";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class TopicInformation extends AppCompatActivity {
         Intent intent = getIntent();
         String topic = intent.getStringExtra("Topic");
         String id = intent.getStringExtra("id");
+        upperString = intent.getStringExtra("upperString");
+        Log.d(TAG, "onCreate: " + upperString);
 
         image = findViewById(R.id.image);
         title = findViewById(R.id.title);
@@ -58,19 +61,22 @@ public class TopicInformation extends AppCompatActivity {
 
 
         //preloads data with first information
-        information = mInfo.get(0);
-        title.setText(topic.toUpperCase());
-        info.setText(information.getInformation());
-        image.setImageResource(information.getPicture());
-        next.setVisibility(View.VISIBLE);
-        previous.setVisibility(View.GONE);
-        position.setText(0 + 1 + "/" + mInfo.size());
-        constraintLayout = findViewById(R.id.constraintLayout);
-        constraintSet = new ConstraintSet();
-        constraintSet.clone(constraintLayout);
-        constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
-        constraintSet.applyTo(constraintLayout);
-
+        if (mInfo != null) {
+            information = mInfo.get(0);
+            title.setText(topic.toUpperCase());
+            info.setText(information.getInformation());
+            image.setImageResource(information.getPicture());
+            next.setVisibility(View.VISIBLE);
+            previous.setVisibility(View.GONE);
+            position.setText(0 + 1 + "/" + mInfo.size());
+            constraintLayout = findViewById(R.id.constraintLayout);
+            constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
+            constraintSet.applyTo(constraintLayout);
+        } else {
+            info.setText("Nothing has been added yet. Please come back when the app updates.");
+        }
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,6 +173,7 @@ public class TopicInformation extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TopicsActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, upperString.toLowerCase());
                 startActivity(intent);
 
             }

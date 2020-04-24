@@ -11,7 +11,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN_TIME_OUT = 2000;
 
-    //splash screen reference https://abhiandroid.com/programming/splashscreen
+    /**
+     * REFERENCE for creating splash screen
+     * https://abhiandroid.com/programming/splashscreen
+     */
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
