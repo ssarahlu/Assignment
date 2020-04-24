@@ -1,5 +1,9 @@
 package com.example.assignment.Entities;
 
+import com.example.assignment.R;
+
+import java.util.ArrayList;
+
 public class Question {
 
     private int id;
@@ -21,6 +25,16 @@ public class Question {
         this.answer = answer;
         this.photo = photo;
         this.topicId = topicId;
+    }
+
+    public static ArrayList<Question> getQuestions() {
+        ArrayList<Question> q = new ArrayList<>();
+        q.add(new Question(1, "What is this note called?", "Semibreve", "Crochet", "Semibreathe", "Semi", "Semibreve", R.drawable.semibreve, 1));
+        q.add(new Question(2, "How many beats are in a crochet?", "1", "2", "4", "3", "1", R.drawable.crochet, 1));
+        q.add(new Question(3, "What is this note called?", "Menum", "Minam", "Minim", "Minimum", "Minim", R.drawable.minim, 1));
+        q.add(new Question(4, "How many beats are in a minim?", "3", "1", "4", "2", "2", R.drawable.minim, 1));
+
+        return q;
     }
 
     public int getId() {

@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.assignment.Entities.Topic;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class TopicsActivity extends AppCompatActivity {
     private ArrayList<Topic> mTopics = new ArrayList<>();
     private String upperString;
     private String difficulty = "";
+    private String email;
 
 
     @Override
@@ -32,6 +35,7 @@ public class TopicsActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);
         Intent intent = getIntent();
+        email = intent.getStringExtra("email");
 
         if (intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE) != null) {
             difficulty = intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE);
@@ -77,6 +81,7 @@ public class TopicsActivity extends AppCompatActivity {
         intent.putExtra("Topic", topic.getTopic());
         intent.putExtra("id", String.valueOf(topic.getId()));
         intent.putExtra("upperString", upperString);
+        intent.putExtra("email", email);
         startActivity(intent);
 
     }

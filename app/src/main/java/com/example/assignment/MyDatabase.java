@@ -9,7 +9,7 @@ import com.example.assignment.Entities.QuizResult;
 import com.example.assignment.Entities.Rewards;
 import com.example.assignment.Entities.TopicResult;
 
-@Database(entities = {Account.class, AccountAchievement.class, QuizResult.class, Rewards.class, TopicResult.class}, version = 1)
+@Database(entities = {Account.class, AccountAchievement.class, QuizResult.class, Rewards.class, TopicResult.class}, version = 1, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
 
     public abstract AccountAchievementDao accountAchievementDao();

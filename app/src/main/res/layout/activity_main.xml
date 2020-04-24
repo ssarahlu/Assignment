@@ -34,8 +34,8 @@
 
     <TextView
         android:id="@+id/welcome_bac"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
+        android:layout_width="195dp"
+        android:layout_height="39dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="48dp"
@@ -44,26 +44,28 @@
         android:gravity="center_vertical"
         android:text="@string/welcome_bac"
         android:textAppearance="@style/welcome_bac"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/log_in_with"
-        android:layout_width="265dp"
-        android:layout_height="30dp"
+        android:layout_width="297dp"
+        android:layout_height="32dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical"
         android:text="@string/log_in_with"
         android:textAppearance="@style/log_in_with"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/welcome_bac"
         app:layout_constraintTop_toBottomOf="@+id/welcome_bac" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="265dp"
-        android:layout_height="38dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="43dp"
         android:background="@drawable/log_in_rect"
         android:text="@string/log_in"
@@ -77,26 +79,27 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="152dp"
-        android:layout_height="40dp"
+        android:layout_width="306dp"
+        android:background="@drawable/log_in_rect"
+        android:layout_height="42dp"
         android:layout_marginTop="191dp"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.331" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="75dp"
-        android:layout_height="85dp"
+        android:layout_width="95dp"
+        android:layout_height="105dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.171"
+        app:layout_constraintVertical_bias="0.14"
         app:srcCompat="@drawable/light_dark_logo" />
 
     <EditText

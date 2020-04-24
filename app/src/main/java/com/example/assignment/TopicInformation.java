@@ -3,8 +3,10 @@ package com.example.assignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.room.Room;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,28 +15,35 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.assignment.Entities.Account;
 import com.example.assignment.Entities.Information;
 import com.example.assignment.Entities.Topic;
+import com.example.assignment.Entities.TopicResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 
 public class TopicInformation extends AppCompatActivity {
 
-    private Topic topic;
+    public static final String EXTRA_MESSAGE = "topic_id";
+    private static final String TAG = "TopicInformation";
+    private String topic, email, id, upperString;
+    private static int i = 0;
+    private int width;
     private Information information;
+    private ArrayList<Information> mInfo = new ArrayList<>();
     private ImageView image;
     private TextView title, info, position;
     private ImageButton cancel;
-    private Button next, previous;
-    private ArrayList<Information> mInfo = new ArrayList<>();
-    private static int i = 0;
+    private Button next, previous, check;
     ConstraintSet constraintSet;
     ConstraintLayout constraintLayout;
-    public static final String EXTRA_MESSAGE = "topic_id";
-    private String upperString;
-    private static final String TAG = "TopicInformation";
-    private int width;
+    MyDatabase myDb;
+    TopicResult tr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +51,18 @@ public class TopicInformation extends AppCompatActivity {
         setContentView(R.layout.activity_topic_information);
 
         Intent intent = getIntent();
-        String topic = intent.getStringExtra("Topic");
-        String id = intent.getStringExtra("id");
+        email = intent.getStringExtra("email");
+        topic = intent.getStringExtra("Topic");
+        id = intent.getStringExtra("id");
         upperString = intent.getStringExtra("upperString");
+        Log.d(TAG, "onCreate: " + id);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            email = acct.getEmail();
+            System.out.println(email);
+        }
+
+        tr = new TopicResult(Integer.valueOf(id), email, 0, true);
 
         image = findViewById(R.id.image);
         title = findViewById(R.id.title);
@@ -53,12 +71,16 @@ public class TopicInformation extends AppCompatActivity {
         next = findViewById(R.id.next);
         previous = findViewById(R.id.previous);
         position = findViewById(R.id.position);
+        check = findViewById(R.id.check);
+        check.setVisibility(View.GONE);
 
         for (Information i : Information.getInfo()) {
             if (i.getTopicId() == Integer.parseInt(id)) {
                 mInfo.add(i);
             }
         }
+
+        new MyViewedTask().execute();
 
         //gets the width of the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -104,6 +126,7 @@ public class TopicInformation extends AppCompatActivity {
                     constraintSet.applyTo(constraintLayout);
                     //sets components with data
                     info.setText("You have finished your learning");
+                    check.setVisibility(View.VISIBLE);
                     image.setImageResource(R.drawable.tick);
                     position.setText("");
                     Log.d(TAG, "onClick line 109 displays element: " + i);
@@ -200,7 +223,49 @@ public class TopicInformation extends AppCompatActivity {
             }
         });
 
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), TopicQuestionActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("topic", topic);
+                startActivity(intent);
+            }
+
+        });
+
         setTitle(topic);
 
     }
+
+
+    private class MyViewedTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "onPreExecute: LOADING");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+            myDb.topicResultDao().insert(tr.getTopicId(), tr.getEmail(), 0, true);
+            System.out.println(tr.getTopicId());
+            System.out.println(tr.getEmail());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+//            Log.d(TAG, "doInBackground: " + myDb.topicResultDao().getViewed("keynotes3634@gmail.com", tr.getTopicId()));
+            Log.d(TAG, "onPostExecute: FINISHED");
+            myDb.close();
+
+        }
+
+    }
+
+
 }

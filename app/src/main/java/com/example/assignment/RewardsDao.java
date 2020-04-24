@@ -3,6 +3,7 @@ package com.example.assignment;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -22,6 +23,9 @@ public interface RewardsDao {
 
     @Insert
     void insertAll(Rewards... rewards);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(Rewards rewards);
 
     @Query("DELETE FROM Rewards")
     void delAll();

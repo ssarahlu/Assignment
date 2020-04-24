@@ -3,6 +3,7 @@ package com.example.assignment;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -24,6 +25,9 @@ public interface QuizResultDao {
 
     @Insert
     void insertAll(QuizResult... quizResults);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(QuizResult quizResults);
 
     @Query("DELETE FROM QuizResult")
     void delAll();

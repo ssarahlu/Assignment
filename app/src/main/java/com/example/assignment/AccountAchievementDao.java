@@ -3,6 +3,7 @@ package com.example.assignment;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,7 +18,7 @@ public interface AccountAchievementDao {
     List<AccountAchievement> getAccAchs();
 
     @Query("SELECT * FROM AccountAchievement WHERE email == :email")
-    List<AccountAchievement>  getAccAch(String email);
+    List<AccountAchievement> getAccAch(String email);
 
     @Query("SELECT * FROM AccountAchievement WHERE email == :email AND achievementId == :achievementId")
     AccountAchievement getAch(String email, int achievementId);
@@ -26,6 +27,9 @@ public interface AccountAchievementDao {
 
     @Insert
     void insertAll(AccountAchievement... accountAchievements);
+
+    @Insert
+    void insert(AccountAchievement accountAchievements);
 
     @Query("DELETE FROM AccountAchievement")
     void delAll();

@@ -147,5 +147,17 @@
 
     </style>
 
+    <style name="check_your">
+
+        <item name="android:textSize">
+            20sp
+        </item>
+
+        <item name="android:textColor">
+            #CC2886E2
+        </item>
+
+    </style>
+
 
 </resources>

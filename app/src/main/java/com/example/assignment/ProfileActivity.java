@@ -2,15 +2,18 @@ package com.example.assignment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.assignment.Entities.Account;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.bumptech.glide.Glide;
@@ -18,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
 
 /**
  * REFERENCE for Google Login API
@@ -30,6 +32,9 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button signOut, button;
     GoogleSignInClient mGoogleSignInClient;
+    MyDatabase myDb;
+    private String personName, personEmail, personFName, personLname;
+    private static final String TAG = "ProfileActivity";
 
 
     @Override
@@ -52,6 +57,12 @@ public class ProfileActivity extends AppCompatActivity {
         signOut = findViewById(R.id.signOut);
         button = findViewById(R.id.button);
 
+        myDb = Room.databaseBuilder(this, MyDatabase.class, "my-db.db")
+                .allowMainThreadQueries()
+                .build();
+
+        myDb.topicResultDao().delAll();
+
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
+                intent.putExtra("email", personEmail);
                 startActivity(intent);
 
             }
@@ -75,12 +87,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personEmail = acct.getEmail();
+            personName = acct.getDisplayName();
+            personEmail = acct.getEmail();
+            personFName = acct.getGivenName();
+            personLname = acct.getFamilyName();
             String personId = acct.getId();
             name.setText(personName);
             email.setText(personEmail);
             id.setText(personId);
+            myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
+            myDb.close();
+            Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
             Glide.with(this).load(String.valueOf(acct.getPhotoUrl())).into(imageView);
         }
 

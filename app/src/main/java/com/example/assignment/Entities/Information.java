@@ -57,6 +57,10 @@ public class Information {
         info.add(new Information(2, "This is a minim. Minims look very similar to crochets but are not filled in the middle. Minims are held for 2 beats. ", R.drawable.minim, 1));
         info.add(new Information(3, "This is a dotted minim. Dotted minims look very similar to minims but have a black dot on their right. Dotted minims are held for 3 beats. ", R.drawable.dotted_minim, 1));
         info.add(new Information(4, "This is a semibreve. Semibreves are held for 4 beats.", R.drawable.semibreve, 1));
+        info.add(new Information(5, "Change later.", R.drawable.semibreve, 2));
+        info.add(new Information(6, "Change later.", R.drawable.semibreve, 3));
+        info.add(new Information(7, "Change later.", R.drawable.semibreve, 4));
+        info.add(new Information(8, "Change later.", R.drawable.semibreve, 5));
 
         return info;
     }
