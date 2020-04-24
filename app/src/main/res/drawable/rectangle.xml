@@ -22,7 +22,7 @@
         <path
             android:pathData="M4 0H274C276.209 0 278 1.79086 278 4V190C278 192.209 276.209 194 274 194H4C1.79086 194 0 192.209 0 190V4C0 1.79086 1.79086 0 4 0Z"
             android:strokeWidth="2"
-            android:strokeColor="#2886E2"
+            android:strokeColor="#909090"
             />
 
     </group>
