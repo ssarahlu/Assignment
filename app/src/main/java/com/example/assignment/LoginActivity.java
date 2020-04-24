@@ -37,22 +37,14 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //old
         button = findViewById(R.id.button);
-        //new
-//        email = findViewById(R.id.email);
         signIn = findViewById(R.id.sign_in_button);
-//        logout = findViewById(R.id.logout);
-//        enter = findViewById(R.id.enter);
-//        name = findViewById(R.id.name);
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
                 startActivity(intent);
-
             }
         });
 
@@ -64,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                         signIn();
                         break;
                 }
-
             }
         });
 
@@ -73,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
                 .requestProfile()
                 .requestIdToken("748117709797-gpul3b7tr723u9rd54ol7s5bl1e5eq59.apps.googleusercontent.com")
                 .build();
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
@@ -90,8 +80,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
@@ -101,19 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-//            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-//            Uri personPhoto = acct.getPhotoUrl();
-            Intent intent = new Intent(LoginActivity.this, Main2Activity.class);
-//            personPhoto = account.getPhotoUrl();
-//            Log.d(TAG, "handleSignInResult: " + personPhoto);
-//            Log.d(TAG, "handleSignInResult: " + account.getPhotoUrl());
-//            System.out.println(personPhoto);
-//
-//            if (acct != null) {
-//                System.out.println(personPhoto);
-//                intent.putExtra("pic", personPhoto);
-//
-//            }
+            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
             startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -121,21 +97,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-//
-//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-//        try {
-//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-//
-//            // Signed in successfully, show authenticated UI.
-//            updateUI(true);
-//        } catch (ApiException e) {
-//            // The ApiException status code indicates the detailed failure reason.
-//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-//            Log.w(TAG, "Error signInResult:failed code=" + e.getStatusCode());
-//            updateUI(false);
-//        }
-//    }
 
+    /**
+     * TODO for checking for existing signed in user
+     */
     //use this to check for existing signed in user
 //    @Override
 //    protected void onStart(){

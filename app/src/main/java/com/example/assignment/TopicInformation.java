@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,12 +28,13 @@ public class TopicInformation extends AppCompatActivity {
     private ImageButton cancel;
     private Button next, previous;
     private ArrayList<Information> mInfo = new ArrayList<>();
-    private static int i = 1;
+    private static int i = 0;
     ConstraintSet constraintSet;
     ConstraintLayout constraintLayout;
     public static final String EXTRA_MESSAGE = "topic_id";
     private String upperString;
     private static final String TAG = "TopicInformation";
+    private int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,6 @@ public class TopicInformation extends AppCompatActivity {
         String topic = intent.getStringExtra("Topic");
         String id = intent.getStringExtra("id");
         upperString = intent.getStringExtra("upperString");
-        Log.d(TAG, "onCreate: " + upperString);
 
         image = findViewById(R.id.image);
         title = findViewById(R.id.title);
@@ -59,21 +60,32 @@ public class TopicInformation extends AppCompatActivity {
             }
         }
 
+        //gets the width of the screen
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        width = displayMetrics.widthPixels;
 
-        //preloads data with first information
+
+        //preloads data with first information if the list of information is not null
         if (mInfo != null) {
-            information = mInfo.get(0);
+            i = 0;
+            information = mInfo.get(i);
             title.setText(topic.toUpperCase());
             info.setText(information.getInformation());
             image.setImageResource(information.getPicture());
+            position.setText(i + 1 + "/" + mInfo.size());
+
+            //changes button so that only the next button is visible when the user is on the first information object
             next.setVisibility(View.VISIBLE);
             previous.setVisibility(View.GONE);
-            position.setText(0 + 1 + "/" + mInfo.size());
             constraintLayout = findViewById(R.id.constraintLayout);
             constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
             constraintSet.applyTo(constraintLayout);
+            Log.d(TAG, "onCreate line 85 displays element: " + i);
+            i++;
+            Log.d(TAG, "onCreate line 88 sets next element: " + i);
         } else {
             info.setText("Nothing has been added yet. Please come back when the app updates.");
         }
@@ -81,90 +93,99 @@ public class TopicInformation extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if i is less than the array list size
+                //if the information is on the last element of the list (no more information to display)
                 if (i >= mInfo.size()) {
-                    //sets next button as invisible if there are no more pages to learn
+                    //changes button so that only the previous button is visible when the user is on the last information object
                     next.setVisibility(View.GONE);
                     previous.setVisibility(View.VISIBLE);
                     constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
                     constraintSet.constrainWidth(R.id.previous, ConstraintLayout.LayoutParams.MATCH_PARENT);
                     constraintSet.applyTo(constraintLayout);
-
+                    //sets components with data
                     info.setText("You have finished your learning");
                     image.setImageResource(R.drawable.tick);
                     position.setText("");
-                    i = mInfo.size() + 1;
-                } else {
-                    information = mInfo.get(i);
-                    info.setText(information.getInformation());
-                    image.setImageResource(information.getPicture());
-                    position.setText(i + 1 + "/" + mInfo.size());
-
-                    previous.setVisibility(View.VISIBLE);
-                    constraintSet = new ConstraintSet();
-                    constraintSet.clone(constraintLayout);
-                    constraintSet.constrainWidth(R.id.next, 540);
-                    constraintSet.applyTo(constraintLayout);
-
-                    i++;
-                }
-
-                if (i == 1 || (i + 1) == 0) {
+                    Log.d(TAG, "onClick line 109 displays element: " + i);
+                    i = mInfo.size() - 1;
+                    Log.d(TAG, "onClick line 111 sets next element: " + i);
+                    //if the information is on the first element of the list (user can't go to previous)
+                } else if (i == 0) {
+                    //changes button so that only the next button is visible when the user is on the first information object
                     previous.setVisibility(View.GONE);
                     constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
                     constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
                     constraintSet.applyTo(constraintLayout);
-
-                    information = mInfo.get(0);
+                    //sets components with data
+                    information = mInfo.get(i);
                     info.setText(information.getInformation());
                     image.setImageResource(information.getPicture());
                     position.setText(i + 1 + "/" + mInfo.size());
+                    Log.d(TAG, "onClick line 125 displays element: " + i);
+                    i++;
+                    Log.d(TAG, "onClick line 127 sets next element: " + i);
+                    //if the user is not on the last or first element of the information list
+                } else {
+                    //changes buttons so that previous and next buttons are visible and will take up half the screen width each
+                    previous.setVisibility(View.VISIBLE);
+                    constraintSet = new ConstraintSet();
+                    constraintSet.clone(constraintLayout);
+                    constraintSet.constrainWidth(R.id.next, width / 2);
+                    constraintSet.applyTo(constraintLayout);
+                    //sets components with data
+                    information = mInfo.get(i);
+                    info.setText(information.getInformation());
+                    image.setImageResource(information.getPicture());
+                    position.setText(i + 1 + "/" + mInfo.size());
+                    Log.d(TAG, "onClick line 141 displays element: " + i);
+                    i++;
+                    Log.d(TAG, "onClick line 143 sets next element: " + i);
                 }
-
             }
         });
 
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (i == 0 || (i - 2) == 0) {
-
+                //if the user is on the first element of the information list
+                if (i == 0) {
+                    //changes button so that only the next button is visible when the user is on the first information object
                     previous.setVisibility(View.GONE);
                     constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
                     constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
                     constraintSet.applyTo(constraintLayout);
-
-                    information = mInfo.get(0);
+                    //sets components with data
+                    information = mInfo.get(i);
                     info.setText(information.getInformation());
                     image.setImageResource(information.getPicture());
-                    i = 1;
-                    position.setText(i + "/" + mInfo.size());
-
+                    position.setText(i + 1 + "/" + mInfo.size());
+                    Log.d(TAG, "onClick line 164 displays element: " + i);
+                    i++;
+                    Log.d(TAG, "onClick line 166 sets next element: " + i);
+                    //if the user is not on the first element of the information list
                 } else {
-                    information = mInfo.get(i - 2);
-                    info.setText(information.getInformation());
-                    image.setImageResource(information.getPicture());
-
+                    //changes buttons so that previous and next buttons are visible and will take up half the screen width each
                     previous.setVisibility(View.VISIBLE);
                     constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
-                    constraintSet.constrainWidth(R.id.next, 540);
+                    constraintSet.constrainWidth(R.id.next, width / 2);
                     constraintSet.applyTo(constraintLayout);
-
                     next.setVisibility(View.VISIBLE);
                     constraintSet = new ConstraintSet();
                     constraintSet.clone(constraintLayout);
-                    constraintSet.constrainWidth(R.id.previous, 540);
+                    constraintSet.constrainWidth(R.id.previous, width / 2);
                     constraintSet.applyTo(constraintLayout);
-
-                    position.setText(i - 1 + "/" + mInfo.size());
+                    //sets components with data
+                    information = mInfo.get(i);
+                    info.setText(information.getInformation());
+                    image.setImageResource(information.getPicture());
+                    position.setText(i + 1 + "/" + mInfo.size());
+                    Log.d(TAG, "onClick line 185 dislpays element: " + i);
                     i--;
+                    Log.d(TAG, "onClick line 187 sets next element: " + i);
                 }
-
 
             }
         });
@@ -178,7 +199,6 @@ public class TopicInformation extends AppCompatActivity {
 
             }
         });
-
 
         setTitle(topic);
 
