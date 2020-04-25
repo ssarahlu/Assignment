@@ -33,7 +33,24 @@ public class Question {
         q.add(new Question(2, "How many beats are in a crochet?", "1", "2", "4", "3", "1", R.drawable.crochet, 1));
         q.add(new Question(3, "What is this note called?", "Menum", "Minam", "Minim", "Minimum", "Minim", R.drawable.minim, 1));
         q.add(new Question(4, "How many beats are in a minim?", "3", "1", "4", "2", "2", R.drawable.minim, 1));
-
+        q.add(new Question(5,  "How many beats are there in a 3/4 time bar?", "3", "4", "7", "0.75", "3", R.drawable.three_four_bar, 2));
+        q.add(new Question(6,  "What does common time mean?", "4 crotchet beats in one bar", "The same time as before", "The most common speed", "None of the above", "4 crotchet beats in one bar", R.drawable.common_time,2));
+        q.add(new Question(7,  "How many beats are there in a 4/4 time bar?", "4","8","1","2","4", R.drawable.four_four_time, 2 ));
+        q.add(new Question(8,  "What note is this? Hint: We are in the treble clef. ", "D", "E", "B", "C", "D", R.drawable.treble_d, 3));
+        q.add(new Question(9,  "What note is this? Hint: We are in the treble clef so use the \"Every Good Bird Deserves Fruit\" mnemonic. ", "E","F","G","B","E", R.drawable.treble_e, 3 ));
+        q.add(new Question(10,  "What is the mnemonic for treble clef spaces?", "F-A-C-E","Good Birds Don't Fly Away", "B-E-A-D", "C-A-F-E", "F-A-C-E", R.drawable.face_no_label, 3 ));
+        q.add(new Question(11,  "From left to right, what are these 2 notes?", "D, E", "E, A", "C, D", "F, G","D, E", R.drawable.treble_d_e, 3));
+        q.add(new Question(12,  "From left to right, what are these 3 notes?","E, G, B", "E, F, B", "E, D, B","E, C, B","E, C, B", R.drawable.treble_e_c_b, 3));
+        q.add(new Question(13,  "From left to right, what are these 4 notes?", "B, C, E, G", "A, C, E, G", "F, E, D, A", "G, B, C, E","G, B, C, E", R.drawable.treble_g_b_c_e, 3 ));
+        q.add(new Question(14,  "What note is this? Hint: We are in the bass clef so use the \"All-Cows-Eat-Grass\" mnemonic.", "A", "C", "E","G","A",R.drawable.bass_a, 4 ));
+        q.add(new Question(15,  "What note is this? Hint: We are in the bass clef. ", "B", "D", "A", "C", "B", R.drawable.bass_b,4 ));
+        q.add(new Question(16,  "From left to right, what are these 2 notes?", "B, A", "B, F", "B, G", "B, D", "B, D", R.drawable.bass_b_d, 4));
+        q.add(new Question(17,  "From left to right, what are these 3 notes?","G, A, D", "F, A, D", "D, A, D", "E, A, D", "G, A, D",R.drawable.bass_g_a_d, 4 ));
+        q.add(new Question(18,  "From left to right, what are these 4 notes?", "B, A, B, A", "F, A, D, E", "E, A, D, B", "B, E, A, D", "E, A, D, B",R.drawable.bass_e_a_d_b,4 ));
+        q.add(new Question(19,  "What is the mnemonic for bass clef spaces? ", "All Cows Eat Grass","F-A-C-E", "D-E-A-D", "B-E-G-A", "All Cows Eat Grass", R.drawable.all_cows_eat_grass_no_label, 4));
+        q.add(new Question(20,  "What does mp mean?","Moderately Loud", "Minimum Soft", "Moderately Soft", "Maximum Piano", "Moderately Soft", R.drawable.mp, 5));
+        q.add(new Question(21,  "What does mf stand for? ", "Mezzo Forte","Mezzazine Forte", "Medium Forte", "Mezz Fort", "Mezzo Forte", R.drawable.mf, 5 ));
+        q.add(new Question(22,  "What is the name of this sign?", "Decrescendo", "Crescent", "Crescendo","Colour","Crescendo",R.drawable.cresc,5 ));
         return q;
     }
 

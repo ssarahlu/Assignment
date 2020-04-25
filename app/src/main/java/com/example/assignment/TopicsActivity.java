@@ -49,6 +49,12 @@ public class TopicsActivity extends AppCompatActivity {
             Log.d(TAG, "onCreate TOPIC INFORMATION  : " + difficulty + " " + upperString);
             setTitle(upperString + " Courses");
 
+        } else if (intent.getStringExtra(TopicQuestionActivity.EXTRA_MESSAGE) != null) {
+            difficulty = intent.getStringExtra(TopicQuestionActivity.EXTRA_MESSAGE).toLowerCase();
+            upperString = difficulty.substring(0, 1).toUpperCase() + difficulty.substring(1).toLowerCase();
+            Log.d(TAG, "onCreate TOPIC INFORMATION  : " + difficulty + " " + upperString);
+            setTitle(upperString + " Courses");
+
         } else {
             difficulty = "Not courses found. Please reload the app.";
             setTitle(difficulty);

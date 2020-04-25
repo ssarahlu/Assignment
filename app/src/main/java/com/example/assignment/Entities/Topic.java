@@ -50,6 +50,11 @@ public class Topic {
         topics.add(new Topic(3, "easy", "Treble clef"));
         topics.add(new Topic(4, "easy", "Bass clef"));
         topics.add(new Topic(5, "easy", "Dynamics"));
+        topics.add(new Topic(6, "intermediate", "Sharps"));
+        topics.add(new Topic(7, "intermediate", "Flats"));
+        topics.add(new Topic(8, "intermediate", "Tonality"));
+        topics.add(new Topic(9, "advanced", "Dominant 7ths"));
+        topics.add(new Topic(10, "advanced", "Diminished 7ths"));
 
         return topics;
     }
