@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".LeaderboardActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="start"
+        android:checkable="true"
+        android:background="#FFFFFF"
+        app:itemIconTint="@color/state_colour"
+        app:itemTextColor="#909090"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

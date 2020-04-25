@@ -23,7 +23,20 @@ public interface AccountAchievementDao {
     @Query("SELECT * FROM AccountAchievement WHERE email == :email AND achievementId == :achievementId")
     AccountAchievement getAch(String email, int achievementId);
 
-    //i think i need more to be able to get the achievement ID and email?
+    @Query("INSERT OR IGNORE INTO AccountAchievement VALUES (:email, :achievementId, :achieved, :redeemed)")
+    void insertSingle(String email, int achievementId, boolean achieved, boolean redeemed);
+
+    @Query("UPDATE AccountAchievement SET achieved = :achieved WHERE email == :email AND achievementid == :achievementId ")
+    void updateAchieved(boolean achieved, String email, int achievementId);
+
+    @Query("UPDATE AccountAchievement SET redeemed = :redeemed WHERE email == :email AND achievementid == :achievementId ")
+    void updateRedeemed(boolean redeemed, String email, int achievementId);
+
+    @Query("SELECT achieved FROM AccountAchievement WHERE email == :email AND achievementId == :achievementId")
+    boolean getAchieved(String email, int achievementId);
+
+    @Query("SELECT redeemed FROM AccountAchievement WHERE email == :email AND achievementId == :achievementId")
+    boolean getRedeemed(String email, int achievementId);
 
     @Insert
     void insertAll(AccountAchievement... accountAchievements);

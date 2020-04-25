@@ -7,6 +7,7 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * REFERENCE for Google Login API
@@ -35,6 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
     MyDatabase myDb;
     private String personName, personEmail, personFName, personLname;
     private static final String TAG = "ProfileActivity";
+    BottomNavigationView bottomNavigation;
 
 
     @Override
@@ -55,11 +58,41 @@ public class ProfileActivity extends AppCompatActivity {
         id = findViewById(R.id.id);
         email = findViewById(R.id.email);
         signOut = findViewById(R.id.signOut);
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.redeem);
 
         myDb = Room.databaseBuilder(this, MyDatabase.class, "my-db.db")
                 .allowMainThreadQueries()
                 .build();
+
+
+        bottomNavigation = findViewById(R.id.navigation);
+        bottomNavigation.setItemIconTintList(null);
+        bottomNavigation.setItemTextColor(null);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.learning:
+                        intent = new Intent(getApplicationContext(), SelectDifficulty.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.quiz:
+                        intent = new Intent(getApplicationContext(), QuizActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.reward:
+                        intent = new Intent(getApplicationContext(), RewardActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.leaderboard:
+                        intent = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
