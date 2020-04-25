@@ -95,11 +95,37 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.033" />
 
+    <ImageView
+        android:id="@+id/imgquest"
+        android:layout_width="330dp"
+        android:layout_height="135dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.348" />
+
+    <TextView
+        android:id="@+id/finished"
+        android:layout_width="330dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="176dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgquest" />
+
     <RadioGroup
         android:id="@+id/grp"
         android:layout_width="282dp"
         android:layout_height="269dp"
         android:layout_marginTop="250dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.39"
@@ -137,6 +163,7 @@
             android:buttonTint="#5EA4E9"
             android:text="RadioButton"
             android:textSize="16sp" />
+
     </RadioGroup>
 
     <Button
@@ -172,19 +199,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
-    <!--    <Button-->
-    <!--        android:id="@+id/back"-->
-    <!--        android:layout_width="206dp"-->
-    <!--        android:layout_height="60dp"-->
-    <!--        android:background="#48C4EF"-->
-    <!--        android:text="BACK"-->
-    <!--        android:textAppearance="@style/back"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/next"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
-
     <TextView
         android:id="@+id/position"
         android:layout_width="330dp"
@@ -193,7 +207,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="44dp"
         android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal|center_vertical"
+        android:gravity="center"
         android:text="This is position"
         android:textAppearance="@style/this_is_a_s"
         app:layout_constraintBottom_toTopOf="@+id/title"
@@ -202,17 +216,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:id="@+id/imgquest"
-        android:layout_width="330dp"
-        android:layout_height="135dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.348" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

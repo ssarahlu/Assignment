@@ -1,18 +1,23 @@
 package com.example.assignment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SelectDifficulty extends AppCompatActivity {
 
     private Button beginner, intermediate, advanced;
     private String email;
     public static final String EXTRA_MESSAGE = "difficulty";
+    BottomNavigationView bottomNavigation;
 
 
     @Override
@@ -26,7 +31,40 @@ public class SelectDifficulty extends AppCompatActivity {
         beginner = findViewById(R.id.beginner);
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);
+        bottomNavigation = findViewById(R.id.navigation);
+
         setTitle("Select Difficulty");
+
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.learning:
+//                                Intent intent = new Intent(this, SelectDifficulty.class);
+//                                startActivity(intent);
+                        return true;
+                    case R.id.quiz:
+                        intent = new Intent(getApplicationContext(), QuizActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.reward:
+                        intent = new Intent(getApplicationContext(), RewardActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.leaderboard:
+                        intent = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.profile:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
+
 
         beginner.setOnClickListener(new View.OnClickListener() {
             @Override

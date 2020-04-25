@@ -12,16 +12,18 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.bumptech.glide.Glide;
-import com.example.assignment.Entities.Account;
+import com.example.assignment.Entities.Question;
 import com.example.assignment.Entities.Topic;
+import com.example.assignment.Entities.TopicResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Topic> mTopics;
+    private int mStars, mTotal;
     private RecyclerViewClickListener mListener;
     private Context context;
     private Topic mTopic;
@@ -40,8 +42,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public TextView topic;
-        public ImageView tick;
+        public TextView topic, star;
+        public ImageView tick, img;
         private RecyclerViewClickListener mListener;
 
         public MyViewHolder(View v, RecyclerViewClickListener listener) {
@@ -50,6 +52,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             v.setOnClickListener(this);
             topic = v.findViewById(R.id.topic);
             tick = v.findViewById(R.id.tick);
+            star = v.findViewById(R.id.star);
+            img = v.findViewById(R.id.img);
 
         }
 
@@ -81,14 +85,30 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 .build();
 
         viewed = myDb.topicResultDao().getViewed(email, mTopic.getId());
+        mStars = myDb.topicResultDao().getStars(email, mTopic.getId());
+
+        int[] totalQuestions = new int[mTopics.size()];
+
+        for (Question q : Question.getQuestions()) {
+            if (q.getTopicId() == mTopic.getId()) {
+                totalQuestions[mTopic.getId() - 1]++;
+            }
+        }
 
         if (viewed == true) {
             holder.tick.setImageResource(R.drawable.tick);
+            holder.img.setImageResource(R.drawable.star);
+            holder.star.setText(mStars + "/" + totalQuestions[position] + " stars");
         } else {
-            holder.tick.setImageResource(R.drawable.cancel);
+            holder.tick.setImageResource(android.R.color.transparent);
+            holder.img.setImageResource(android.R.color.transparent);
+            holder.star.setText("");
         }
 
+        myDb.close();
+
     }
+
 
     @Override
     public int getItemCount() {

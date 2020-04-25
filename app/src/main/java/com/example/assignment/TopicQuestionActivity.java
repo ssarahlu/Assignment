@@ -3,8 +3,10 @@ package com.example.assignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.room.Room;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -19,27 +21,30 @@ import android.widget.Toast;
 
 import com.example.assignment.Entities.Information;
 import com.example.assignment.Entities.Question;
+import com.example.assignment.Entities.TopicResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 
 public class TopicQuestionActivity extends AppCompatActivity {
     private int topicId, stars, i, questionId;
-    private String topic, answer, selectedAnswer, difficulty;
+    private String topic, answer, selectedAnswer, difficulty, email;
     private RadioButton opt1, opt2, opt3, opt4;
     private RadioGroup grp;
-    private TextView question, position;
+    private TextView question, position, fin;
     private Button next, check, again;
-    //    private Button back;
     private ImageButton cancel;
     private ImageView img1, img2, img3, img4, imgquest;
     public static final String EXTRA_MESSAGE = "topic_id";
     private ArrayList<Question> mQuestions = new ArrayList<>();
     private Question q;
     private boolean correct = false;
-    ConstraintSet constraintSet;
-    ConstraintLayout constraintLayout;
-    private int width;
     private static final String TAG = "TopicQuestionActivity";
+    TopicResult tr;
+    MyDatabase myDb;
+    int addedStars, mStars;
+    private String finished;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
         question = findViewById(R.id.question);
         again = findViewById(R.id.again);
         next = findViewById(R.id.next);
-//        back = findViewById(R.id.back);
         check = findViewById(R.id.check);
         cancel = findViewById(R.id.cancel);
         img1 = findViewById(R.id.img1);
@@ -68,7 +72,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
         imgquest = findViewById(R.id.imgquest);
         position = findViewById(R.id.position);
         grp = findViewById(R.id.grp);
-//        constraintLayout = findViewById(R.id.constraintLayout);
+        fin = findViewById(R.id.finished);
         stars = 0;
 
         for (Question q : Question.getQuestions()) {
@@ -76,13 +80,13 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 mQuestions.add(q);
             }
         }
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        width = displayMetrics.widthPixels;
         setTitle(topic);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            email = acct.getEmail();
+            System.out.println(email);
+        }
 
-        //stars / question.size() will display total stars at end
-        //also code it in so it stores in the DB
         //on click next display the data - say please make selection if null
         //questions displayed: check answer
         //answer displayed: next
@@ -102,7 +106,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
             questionId = q.getId();
             position.setText(i + 1 + "/" + mQuestions.size());
             next.setVisibility(View.GONE);
-//            back.setVisibility(View.GONE);
             img1.setImageResource(android.R.color.transparent);
             img2.setImageResource(android.R.color.transparent);
             img3.setImageResource(android.R.color.transparent);
@@ -117,18 +120,21 @@ public class TopicQuestionActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO - disappear buttons depending on array
                 //TODO - check if null
-                //TODO - clear radiogroup after selected
                 img1.setImageResource(android.R.color.transparent);
                 img2.setImageResource(android.R.color.transparent);
                 img3.setImageResource(android.R.color.transparent);
                 img4.setImageResource(android.R.color.transparent);
-                checkResult();
-                again.setVisibility(View.GONE);
-                check.setVisibility(View.GONE);
-                next.setVisibility(View.VISIBLE);
-//                back.setVisibility(View.VISIBLE);
+                boolean answered = checkResult();
+                if (answered == true) {
+                    again.setVisibility(View.GONE);
+                    check.setVisibility(View.GONE);
+                    next.setVisibility(View.VISIBLE);
+                } else {
+                    again.setVisibility(View.GONE);
+                    check.setVisibility(View.VISIBLE);
+                    next.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -137,22 +143,11 @@ public class TopicQuestionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 next();
                 next.setVisibility(View.GONE);
-//                back.setVisibility(View.GONE);
-//                again.setVisibility(View.GONE);
 
             }
 
         });
-//        back.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                back();
-//                next.setVisibility(View.GONE);
-//                back.setVisibility(View.GONE);
-//                again.setVisibility(View.GONE);
-//
-//            }
-//        });
+
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,7 +192,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
         });
     }
 
-    private void checkResult() {
+    private boolean checkResult() {
         if (opt1.isChecked()) {
             selectedAnswer = opt1.getText().toString();
             if (selectedAnswer.equals(answer)) {
@@ -210,7 +205,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 correct = false;
             }
             Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
-
+            return true;
         } else if (opt2.isChecked()) {
             selectedAnswer = opt2.getText().toString();
             if (selectedAnswer.equals(answer)) {
@@ -223,7 +218,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 correct = false;
             }
             Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
-
+            return true;
         } else if (opt3.isChecked()) {
             selectedAnswer = opt3.getText().toString();
             if (selectedAnswer.equals(answer)) {
@@ -236,7 +231,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 correct = false;
             }
             Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
-
+            return true;
         } else if (opt4.isChecked()) {
             selectedAnswer = opt4.getText().toString();
             if (selectedAnswer.equals(answer)) {
@@ -249,13 +244,13 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 correct = false;
             }
             Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
+            return true;
 
         } else {
             next.setVisibility(View.GONE);
-//            back.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
+            return false;
         }
-
     }
 
     //displays the correct answer if the user is wrong
@@ -284,59 +279,25 @@ public class TopicQuestionActivity extends AppCompatActivity {
         img4.setImageResource(android.R.color.transparent);
         grp.clearCheck();
         if (i >= mQuestions.size()) {
+            new MyViewedTask().execute();
+            new GetStarsTask().execute();
+            tr = new TopicResult(Integer.valueOf(topicId), email, stars, true);
+            new UpdateStarsTask().execute();
             next.setVisibility(View.GONE);
             grp.setVisibility(View.GONE);
             check.setVisibility(View.GONE);
             again.setVisibility(View.VISIBLE);
-//            back.setVisibility(View.GONE);
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.previous, ConstraintLayout.LayoutParams.MATCH_PARENT);
-//            constraintSet.applyTo(constraintLayout);
-            question.setText("You have finished your quiz. You have earned " + stars + "/" + mQuestions.size() + " stars");
-            switch (stars) {
-                case 1:
-                    imgquest.setImageResource(R.drawable.one_star);
-                    break;
-                case 2:
-                    imgquest.setImageResource(R.drawable.two_star);
-                    break;
-                case 3:
-                    imgquest.setImageResource(R.drawable.three_star);
-                    break;
-                case 4:
-                    imgquest.setImageResource(R.drawable.four_star);
-                    break;
-                case 5:
-                    imgquest.setImageResource(R.drawable.five_star);
-                    break;
-                case 6:
-                    imgquest.setImageResource(R.drawable.six_star);
-                    break;
-                case 0:
-                    imgquest.setImageResource(R.drawable.no_star);
-                    break;
-                default:
-                    imgquest.setImageResource(R.drawable.tick);
-            }
-            position.setText("");
+            //displays stars earnt in the mini quiz
+
             i = mQuestions.size();
+
+
         } else if (i <= 0) {
             i = 1;
             Log.d(TAG, "onClick: line 170 displays index at " + i);
-//            back.setVisibility(View.VISIBLE);
             next.setVisibility(View.VISIBLE);
             check.setVisibility(View.VISIBLE);
             again.setVisibility(View.GONE);
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.previous, width / 2);
-//            constraintSet.applyTo(constraintLayout);
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.next, width / 2);
-//            constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
-//            constraintSet.applyTo(constraintLayout);
             q = mQuestions.get(i);
             question.setText(q.getQuestion());
             opt1.setText(q.getOp1());
@@ -350,18 +311,9 @@ public class TopicQuestionActivity extends AppCompatActivity {
         } else {
             i++;
             Log.d(TAG, "onClick: line 187 displays index at " + i);
-//            back.setVisibility(View.VISIBLE);
             check.setVisibility(View.VISIBLE);
             again.setVisibility(View.GONE);
             next.setVisibility(View.VISIBLE);
-
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
-//            constraintSet.applyTo(constraintLayout);
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.back, width / 2);
-//            constraintSet.applyTo(constraintLayout);
             q = mQuestions.get(i);
             question.setText(q.getQuestion());
             opt1.setText(q.getOp1());
@@ -379,89 +331,146 @@ public class TopicQuestionActivity extends AppCompatActivity {
         }
 
     }
-//
-//    private void back() {
-//        grp.clearCheck();
-//        img1.setImageResource(android.R.color.transparent);
-//        img2.setImageResource(android.R.color.transparent);
-//        img3.setImageResource(android.R.color.transparent);
-//        img4.setImageResource(android.R.color.transparent);
-//        if (i == mQuestions.size()) {
-//            i--;
-//            back.setVisibility(View.VISIBLE);
-//            check.setVisibility(View.VISIBLE);
-//            again.setVisibility(View.GONE);
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.next, width / 2);
-//            constraintSet.applyTo(constraintLayout);
-//            next.setVisibility(View.VISIBLE);
-//            constraintSet = new ConstraintSet();
-//            constraintSet.clone(constraintLayout);
-//            constraintSet.constrainWidth(R.id.previous, width / 2);
-//            constraintSet.applyTo(constraintLayout);
-//            //sets components with data
-//            q = mQuestions.get(i);
-//            question.setText(q.getQuestion());
-//            opt1.setText(q.getOp1());
-//            opt2.setText(q.getOp2());
-//            opt3.setText(q.getOp3());
-//            opt4.setText(q.getOp4());
-//            imgquest.setImageResource(q.getPhoto());
-//            answer = q.getAnswer();
-//            questionId = q.getId();
-//            position.setText(i + 1 + "/" + mQuestions.size());
-//
-//        } else {
-//            i--;
-//            Log.d(TAG, "onClick: line 230 sets index at " + i);
-//            if (i <= 0) {
-//                back.setVisibility(View.GONE);
-//                check.setVisibility(View.VISIBLE);
-//                again.setVisibility(View.GONE);
-//                constraintSet = new ConstraintSet();
-//                constraintSet.clone(constraintLayout);
-//                constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
-//                constraintSet.applyTo(constraintLayout);
-//                i = 0;
-//                q = mQuestions.get(i);
-//                question.setText(q.getQuestion());
-//                opt1.setText(q.getOp1());
-//                opt2.setText(q.getOp2());
-//                opt3.setText(q.getOp3());
-//                opt4.setText(q.getOp4());
-//                imgquest.setImageResource(q.getPhoto());
-//                answer = q.getAnswer();
-//                questionId = q.getId();
-//                position.setText(i + 1 + "/" + mQuestions.size());
-//
-//            } else {
-//                Log.d(TAG, "onClick: line 245 displays index at " + i);
-//                back.setVisibility(View.VISIBLE);
-//                check.setVisibility(View.VISIBLE);
-//                again.setVisibility(View.GONE);
-//                constraintSet = new ConstraintSet();
-//                constraintSet.clone(constraintLayout);
-//                constraintSet.constrainWidth(R.id.next, width / 2);
-//                constraintSet.applyTo(constraintLayout);
-//                next.setVisibility(View.VISIBLE);
-//                constraintSet = new ConstraintSet();
-//                constraintSet.clone(constraintLayout);
-//                constraintSet.constrainWidth(R.id.previous, width / 2);
-//                constraintSet.applyTo(constraintLayout);
-//                q = mQuestions.get(i);
-//                question.setText(q.getQuestion());
-//                opt1.setText(q.getOp1());
-//                opt2.setText(q.getOp2());
-//                opt3.setText(q.getOp3());
-//                opt4.setText(q.getOp4());
-//                imgquest.setImageResource(q.getPhoto());
-//                answer = q.getAnswer();
-//                questionId = q.getId();
-//                position.setText(i + 1 + "/" + mQuestions.size());
-//            }
-//        }
-//    }
 
+
+    private class MyViewedTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "onPreExecute: LOADING");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+//            myDb.topicResultDao().delAll();
+            myDb.topicResultDao().insert(tr.getTopicId(), tr.getEmail(), 0, true);
+            System.out.println("Displaying topic id and email " + tr.getTopicId() + " " + tr.getEmail());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            Log.d(TAG, "onPostExecute: FINISHED");
+        }
+
+    }
+
+    private class GetStarsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+            mStars = myDb.topicResultDao().getStars(tr.getEmail(), tr.getTopicId());
+            Log.d(TAG, "doInBackground: Current stars for this topic are:  " + mStars);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            Log.d(TAG, "onPostExecute: FINISHED");
+
+        }
+
+    }
+
+    private void updateUi() {
+        switch (stars) {
+            case 1:
+                imgquest.setImageResource(R.drawable.one_star);
+                break;
+            case 2:
+                imgquest.setImageResource(R.drawable.two_star);
+                break;
+            case 3:
+                imgquest.setImageResource(R.drawable.three_star);
+                break;
+            case 4:
+                imgquest.setImageResource(R.drawable.four_star);
+                break;
+            case 5:
+                imgquest.setImageResource(R.drawable.five_star);
+                break;
+            case 6:
+                imgquest.setImageResource(R.drawable.six_star);
+                break;
+            case 0:
+                imgquest.setImageResource(R.drawable.no_star);
+                break;
+            default:
+                imgquest.setImageResource(R.drawable.tick);
+        }
+        question.setText("You have finished this topic's knowledge check. Your result is " + stars + "/" + mQuestions.size() + "");
+        position.setText("");
+        fin.setText(finished);
+    }
+
+    private class UpdateStarsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d(TAG, "onPreExecute: LOADING");
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+            Log.d(TAG, "doInBackground: The stars before updating are " + mStars);
+
+            //if my stars is maxed out
+            if (mStars >= mQuestions.size()) {
+                addedStars = 0;
+                finished = "You have already achieved the maximum stars for this topic. You currently have a total of " + mStars + "/" + mQuestions.size() + " stars for this topic so you cannot earn any more stars.";
+                Log.d(TAG, "doInBackground: " + finished);
+                //if your currently earn stars are greater than the maximum stars
+            } else if ((mStars + stars) > mQuestions.size()) {
+                addedStars = (mStars + stars) - mQuestions.size();
+                if (addedStars == 1) {
+                    finished = "You will get an additional " + addedStars + " star. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                } else {
+                    finished = "You will get an additional " + addedStars + " star. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                }
+            } else if (mStars == 0) {
+                addedStars = stars;
+                if (addedStars == 1) {
+                    finished = "You have earned " + addedStars + " star. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                } else {
+                    finished = "You have earned " + addedStars + " stars. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                }
+            } else {
+                addedStars = stars;
+                if (addedStars == 1) {
+                    finished = "You have earned " + addedStars + " star. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                } else {
+                    finished = "You have earned " + addedStars + " stars. Your new total is " + (addedStars + mStars) + "/" + mQuestions.size() + " stars for this topic";
+                    Log.d(TAG, "doInBackground: " + finished);
+                }
+            }
+            myDb.topicResultDao().updateStars((mStars + addedStars), tr.getEmail(), tr.getTopicId());
+            mStars = myDb.topicResultDao().getStars(tr.getEmail(), tr.getTopicId());
+            Log.d(TAG, "onPostExecute: my new total stars " + mStars);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            Log.d(TAG, "onPostExecute: FINISHED");
+
+            myDb.close();
+            updateUi();
+
+        }
+
+    }
 
 }

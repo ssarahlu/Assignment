@@ -135,6 +135,30 @@ public class Quiz {
         quiz.add(new Quiz(30, "easy", "From left to right, what are these 2 notes?", "B, G", "B, E", "B, D", "A, C", "B, D", R.drawable.bass_b_d));
         quiz.add(new Quiz(31, "easy", "From left to right, what are these 2 notes?", "C, D", "C, E", "C, F", "C, G", "C, E", R.drawable.bass_c_e));
         quiz.add(new Quiz(32, "easy", "What does common time mean?", "4 crochet beats in one bar", "The same time as before", "The most common speed", "None of the above", "4 crochet beats in one bar", R.drawable.common_time));
+
+        quiz.add(new Quiz(33,"intermediate", "How many semitones does a sharp raise a note?", "1", "0.5", "0.25","2", "1", R.drawable.sharp));
+        quiz.add(new Quiz(34,"intermediate", "Which note here is a sharp?","F#", "G#", "A#", "D#","F#", R.drawable.accidental_gadf));
+        quiz.add(new Quiz(35,"intermediate", "Which note here is a sharp? ", "D#", "A#", "G#", "F#","F#",R.drawable.accidental_dgaf));
+        quiz.add(new Quiz(36,"intermediate", "How many semitones does a flat lower a note?", "0.5", "1", "0.25", "2", "1", R.drawable.flat));
+        quiz.add(new Quiz(37,"intermediate", "Which note here is a flat?", "Bb", "Db", "Ab","Eb", "Bb", R.drawable.accidental_bdae_treble));
+        quiz.add(new Quiz(38,"intermediate", "Which note here is a flat?", "Db","Bb","Eb","Ab", "Bb", R.drawable.accidental_bdae_bass));
+        quiz.add(new Quiz(39,"intermediate", "What major key is this?","G Major", "F Major", "B Major", "D Major", "G Major", R.drawable.g_major_key));
+        quiz.add(new Quiz(40,"intermediate", "What major key is this?", "C Major", "B Major", "A Major", "D Major", "A Major",R.drawable.a_major_key));
+        quiz.add(new Quiz(41,"intermediate", "What minor key is this?", "A Minor", "G Minor", "E Minor", "D Minor", "D Minor", R.drawable.d_minor_key));
+        quiz.add(new Quiz(42,"intermediate", "What major key is this?","F# Major", "A# Major", "C# Major", "D#  Major", "C# Major", R.drawable.c_sharp_major_key));
+        quiz.add(new Quiz(43, "advanced", "What dominant 7th chord is this?", "C7", "E7", "A7", "G3","C7", R.drawable.c_seven));
+        quiz.add(new Quiz(44, "advanced", "Which note in this C Major scale is the dominant?", "C", "E", "G", "B", "G", R.drawable.c_major));
+        quiz.add(new Quiz(45, "advanced", "Which roman numeral is used to denote a dominant 7th", "V7", "D7", "C7", "G7","V7",R.drawable.c_seven ));
+        quiz.add(new Quiz(46, "advanced", "This is a C Major scale. What are the notes in a C7 chord?", "C,E,G,B", "C,E,G,B#", "G,B,D,Eb", "C,E,G,Bb", "C,E,G,Bb", R.drawable.c_major));
+        quiz.add(new Quiz(47, "advanced", "A dominant 7th chord consists of the dominant triad and an added minor ______ above the root.", "Seventh", "Dominant", "Sixth", "First", "Seventh", R.drawable.dom_seventh));
+        quiz.add(new Quiz(48, "advanced", "What diminished 7th chord is this?", "Cdim1", "Edim7", "Cdim7", "Ddim7", "Cdim7", R.drawable.c_dim_seventh));
+        quiz.add(new Quiz(49, "advanced", "How is the C diminished 7th denoted?", "C7", "Cdim7", "Dim7C", "C7Dim", "Cdim7", R.drawable.c_dim_seventh));
+        quiz.add(new Quiz(50, "advanced", "A diminished 7th is a diminished triad, with an added diminished _____ from the root.", "7th", "3rd", "5th", "9th", "7th", R.drawable.adim_seventh));
+        quiz.add(new Quiz(51, "advanced", "Diminished 7th chords are typically defined by their _______ note.","Flat", "Seventh", "Last", "Root", "Root", R.drawable.c_dim_seventh));
+        quiz.add(new Quiz(52, "advanced","A diminished 7th is a diminished _______, with an added diminished seventh from the root. ", "Triad", "7th", "Third", "Fourth", "Triad", R.drawable.adim_seventh));
+        //add olivias info her e
+
+
         return quiz;
     }
 }

@@ -3,12 +3,9 @@ package com.example.assignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.room.Room;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -16,12 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.example.assignment.Entities.Information;
-import com.example.assignment.Entities.TopicResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -45,8 +39,6 @@ public class TopicInformation extends AppCompatActivity {
     private ImageButton vv;
     ConstraintSet constraintSet;
     ConstraintLayout constraintLayout;
-    MyDatabase myDb;
-    TopicResult tr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +54,8 @@ public class TopicInformation extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
             email = acct.getEmail();
-            System.out.println(email);
         }
 
-        tr = new TopicResult(Integer.valueOf(id), email, 0, true);
 
         image = findViewById(R.id.image);
         title = findViewById(R.id.title);
@@ -92,7 +82,6 @@ public class TopicInformation extends AppCompatActivity {
                 }
             }
         }
-        new MyViewedTask().execute();
 
         //gets the width of the screen
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -355,33 +344,6 @@ public class TopicInformation extends AppCompatActivity {
         }
     }
 
-
-    private class MyViewedTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(TAG, "onPreExecute: LOADING");
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
-                    .build();
-            myDb.topicResultDao().insert(tr.getTopicId(), tr.getEmail(), 0, true);
-            System.out.println(tr.getTopicId());
-            System.out.println(tr.getEmail());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void v) {
-            super.onPostExecute(v);
-            Log.d(TAG, "onPostExecute: FINISHED");
-            myDb.close();
-
-        }
-
-    }
 
 
 }

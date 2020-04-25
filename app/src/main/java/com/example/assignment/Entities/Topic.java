@@ -55,6 +55,7 @@ public class Topic {
         topics.add(new Topic(8, "intermediate", "Tonality"));
         topics.add(new Topic(9, "advanced", "Dominant 7ths"));
         topics.add(new Topic(10, "advanced", "Diminished 7ths"));
+        topics.add(new Topic(11, "easy", "Trivia"));
 
         return topics;
     }

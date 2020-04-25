@@ -61,8 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build();
 
-        myDb.topicResultDao().delAll();
-
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
