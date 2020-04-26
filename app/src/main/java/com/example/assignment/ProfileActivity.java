@@ -1,9 +1,12 @@
 package com.example.assignment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,9 +36,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView name, email, id, stars;
+    private TextView name, email, id, stars, helpCentre, help;
     private ImageView imageView;
     private Button signOut;
+    private ImageButton helpButton, feedback;
     GoogleSignInClient mGoogleSignInClient;
     MyDatabase myDb;
     private String personName, personEmail, personFName, personLname;
@@ -41,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private int mStars;
     GoogleSignInAccount acct;
+    private Dialog feedbackDialog;
 
 
     @Override
@@ -62,6 +69,11 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         signOut = findViewById(R.id.signOut);
         stars = findViewById(R.id.stars);
+        helpCentre = findViewById(R.id.help2);
+        helpButton = findViewById(R.id.helpButton);
+        feedback = findViewById(R.id.feedback);
+        help = findViewById(R.id.help);
+        feedbackDialog = new Dialog(this);
 
         new GetTotalStars().execute();
 
@@ -103,6 +115,40 @@ public class ProfileActivity extends AppCompatActivity {
                         break;
                 }
 
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        helpCentre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        // Feedback is just a prototype, dialog not actually stored anywhere
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
+        // Feedback is just a prototype, dialog not actually stored anywhere
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
             }
         });
 
@@ -179,6 +225,29 @@ public class ProfileActivity extends AppCompatActivity {
             stars.setText("0");
         }
 
+    }
+
+    // Reference: https://www.youtube.com/watch?v=e3WfylNHHC4
+    private void showDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
+        dialog.setTitle("Your feedback is important to us");
+        final EditText feedbackInput = new EditText(ProfileActivity.this);
+        //feedbackInput.setSingleLine(false);
+        feedbackInput.setLines(4);
+        dialog.setView(feedbackInput);
+        dialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(ProfileActivity.this, "Feedback submitted!", Toast.LENGTH_LONG).show();
+            }
+        });
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        dialog.show();
     }
 
 }
