@@ -95,6 +95,7 @@ public class Global {
         getApiService().getQuestion("5", chosenCategory, difficulty, "multiple").enqueue(new Callback<MusicTriviaList>() {
             @Override
             public void onResponse(Call<MusicTriviaList> call, Response<MusicTriviaList> response) {
+                System.out.println(difficulty);
                 MusicTriviaList list = response.body();
                 if(!list.getResults().isEmpty()) {
                     nextList.clear();

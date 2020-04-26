@@ -77,6 +77,7 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
 
         Intent intent = getIntent();
         difficulty = intent.getStringExtra(EXTRA_MESSAGE).toLowerCase();
+        System.out.println(difficulty);
 
         g.getApiService().getQuestion("5", g.chosenCategory, difficulty,"multiple").enqueue(new Callback<MusicTriviaList>() {
             @Override
