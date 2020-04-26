@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -49,6 +50,8 @@ public class TopicQuestionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_question);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
         topicId = Integer.valueOf(id);
@@ -471,6 +474,14 @@ public class TopicQuestionActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), TopicsActivity.class);
+        myIntent.putExtra(EXTRA_MESSAGE, difficulty);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 
 }

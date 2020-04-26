@@ -26,6 +26,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
         setTitle("Leaderboard");
+        getSupportActionBar().hide();
         beginner = findViewById(R.id.beginner);
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);

@@ -37,16 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = findViewById(R.id.redeem);
         signIn = findViewById(R.id.sign_in_button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
-                startActivity(intent);
-            }
-        });
+        getSupportActionBar().hide();
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,37 +89,19 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        updateUI(account);
+    }
 
-    /**
-     * TODO for checking for existing signed in user
-     */
-    //use this to check for existing signed in user
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-////        updateUI(account);
-//    }
 
-//
-//    private void updateUI(boolean isLogin)
-//    {
-//        if(isLogin)
-//        {
-//            name.setVisibility(View.VISIBLE);
-//            email.setVisibility(View.VISIBLE);
-//            logout.setVisibility(View.VISIBLE);
-//            enter.setVisibility(View.VISIBLE);
-//            signIn.setVisibility(View.GONE);
-//        }
-//        else
-//        {
-//            name.setVisibility(View.GONE);
-//            email.setVisibility(View.GONE);
-//            logout.setVisibility(View.GONE);
-//            enter.setVisibility(View.GONE);
-//            signIn.setVisibility(View.VISIBLE);
-//        }
-//    }
+    private void updateUI(GoogleSignInAccount account) {
+        if (account != null) {
+            Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        }
+    }
 }
 

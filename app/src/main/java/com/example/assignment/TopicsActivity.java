@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.assignment.Entities.QuizResult;
 import com.example.assignment.Entities.Topic;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,8 +38,16 @@ public class TopicsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_topics);
         mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            email = acct.getEmail();
+        }
+
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);
@@ -117,7 +124,6 @@ public class TopicsActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-
     private void launchTopics(int position) {
         Topic topic = mTopics.get(position);
         Intent intent = new Intent(this, TopicInformation.class);
@@ -128,5 +134,12 @@ public class TopicsActivity extends AppCompatActivity {
         intent.putExtra("email", email);
         startActivity(intent);
 
+    }
+
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), SelectDifficulty.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

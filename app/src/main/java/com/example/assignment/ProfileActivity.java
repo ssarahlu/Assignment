@@ -146,15 +146,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-//        // Feedback is just a prototype, dialog not actually stored anywhere
-//        help.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showDialog();
-//            }
-//        });
-
-
         acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             personName = acct.getDisplayName();
