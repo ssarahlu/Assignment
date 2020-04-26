@@ -38,7 +38,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ProfileActivity extends AppCompatActivity {
     private TextView name, email, id, stars, helpCentre, help;
     private ImageView imageView;
-    private Button signOut;
+    private Button signOut, feedbackButton, helpCenterButton;
     private ImageButton helpButton, feedback;
     GoogleSignInClient mGoogleSignInClient;
     MyDatabase myDb;
@@ -74,6 +74,8 @@ public class ProfileActivity extends AppCompatActivity {
         feedback = findViewById(R.id.feedback);
         help = findViewById(R.id.help);
         feedbackDialog = new Dialog(this);
+        helpCenterButton = findViewById(R.id.helpCenterButton);
+        feedbackButton = findViewById(R.id.feedbackButton);
 
         new GetTotalStars().execute();
 
@@ -118,16 +120,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        helpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
-                startActivity(intent);
+//        helpButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
-            }
-        });
-
-        helpCentre.setOnClickListener(new View.OnClickListener() {
+        helpCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
@@ -137,20 +139,20 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         // Feedback is just a prototype, dialog not actually stored anywhere
-        feedback.setOnClickListener(new View.OnClickListener() {
+        feedbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
 
-        // Feedback is just a prototype, dialog not actually stored anywhere
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
+//        // Feedback is just a prototype, dialog not actually stored anywhere
+//        help.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialog();
+//            }
+//        });
 
 
         acct = GoogleSignIn.getLastSignedInAccount(this);
@@ -207,7 +209,6 @@ public class ProfileActivity extends AppCompatActivity {
                     .build();
             myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
             Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
-//            myDb.topicResultDao().delAll();
             return null;
         }
 
