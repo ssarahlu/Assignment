@@ -14,7 +14,7 @@
         android:layout_gravity="start"
         android:background="#FFFFFF"
         android:checkable="true"
-        app:itemIconTint="@color/state_colour"
+        app:itemIconTint="#909090"
         app:itemTextColor="#909090"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,5 +22,55 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_bar" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/leaderboard_beginner" />
+
+    <Button
+        android:id="@+id/beginner"
+        android:layout_width="113dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:background="#00FFFFFF"
+        android:text="Beginner"
+        android:textColor="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402" />
+
+    <Button
+        android:id="@+id/intermediate"
+        android:layout_width="125dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="144dp"
+        android:layout_marginLeft="144dp"
+        android:background="#00FFFFFF"
+        android:text="INTERMEDIATE"
+        android:textColor="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403" />
+
+    <Button
+        android:id="@+id/advanced"
+        android:layout_width="113dp"
+        android:layout_height="35dp"
+        android:background="#00FFFFFF"
+        android:text="ADVANCED"
+        android:textColor="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.910"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

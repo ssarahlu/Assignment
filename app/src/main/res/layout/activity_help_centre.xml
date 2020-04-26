@@ -8,7 +8,7 @@
     tools:context=".HelpCentreActivity">
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/image"
         android:layout_width="336dp"
         android:layout_height="596dp"
         app:layout_constraintBottom_toBottomOf="parent"
