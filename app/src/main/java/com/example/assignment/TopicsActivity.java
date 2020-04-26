@@ -99,6 +99,7 @@ public class TopicsActivity extends AppCompatActivity {
         for (Topic t : Topic.getTopics()) {
             if (t.getDifficulty().equals(difficulty)) {
                 mTopics.add(t);
+                System.out.println("added");
             }
         }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -30,14 +31,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView name, email, id;
+    private TextView name, email, id, stars;
     private ImageView imageView;
-    private Button signOut, button;
+    private Button signOut;
     GoogleSignInClient mGoogleSignInClient;
     MyDatabase myDb;
     private String personName, personEmail, personFName, personLname;
     private static final String TAG = "ProfileActivity";
     BottomNavigationView bottomNavigation;
+    private int mStars;
+    GoogleSignInAccount acct;
 
 
     @Override
@@ -58,12 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
         id = findViewById(R.id.id);
         email = findViewById(R.id.email);
         signOut = findViewById(R.id.signOut);
-        button = findViewById(R.id.redeem);
+        stars = findViewById(R.id.stars);
 
-        myDb = Room.databaseBuilder(this, MyDatabase.class, "my-db.db")
-                .allowMainThreadQueries()
-                .build();
-
+        new GetTotalStars().execute();
 
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
@@ -106,17 +106,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
-                intent.putExtra("email", personEmail);
-                startActivity(intent);
 
-            }
-        });
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             personName = acct.getDisplayName();
             personEmail = acct.getEmail();
@@ -126,10 +117,9 @@ public class ProfileActivity extends AppCompatActivity {
             name.setText(personName);
             email.setText(personEmail);
             id.setText(personId);
-            myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
-            myDb.close();
-            Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
+            id.setVisibility(View.GONE);
             Glide.with(this).load(String.valueOf(acct.getPhotoUrl())).into(imageView);
+            new AddUser().execute();
         }
 
     }
@@ -145,5 +135,50 @@ public class ProfileActivity extends AppCompatActivity {
                 });
     }
 
+
+    private class GetTotalStars extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+            mStars = myDb.topicResultDao().getTotalStars(personEmail);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            updateUi();
+            super.onPostExecute(v);
+
+        }
+
+    }
+
+    private class AddUser extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+            myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
+            Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+
+        }
+
+    }
+
+    private void updateUi() {
+        if (mStars >= 0) {
+            stars.setText(String.valueOf(mStars));
+        } else {
+            stars.setText("0");
+        }
+
+    }
 
 }
