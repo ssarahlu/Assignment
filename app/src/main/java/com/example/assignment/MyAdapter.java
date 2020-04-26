@@ -87,10 +87,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         viewed = myDb.topicResultDao().getViewed(email, mTopic.getId());
         mStars = myDb.topicResultDao().getStars(email, mTopic.getId());
 
-        int[] totalQuestions = new int[mTopics.get(mTopics.size() - 1).getId()];
+        int[] totalQuestions = new int[mTopics.get(mTopics.size() - 1).getId() + 1];
+        System.out.println("length");
+        System.out.println(totalQuestions.length);
 
         for (Question q : Question.getQuestions()) {
             if (q.getTopicId() == mTopic.getId()) {
+                System.out.println("Added at this element : " + (mTopic.getId() - 1));
                 totalQuestions[mTopic.getId() - 1]++;
             }
         }
@@ -98,7 +101,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         if (viewed == true) {
             holder.tick.setImageResource(R.drawable.tick);
             holder.img.setImageResource(R.drawable.star);
-            holder.star.setText(mStars + "/" + totalQuestions[position] + " stars");
+            holder.star.setText(mStars + "/" + totalQuestions[mTopic.getId() - 1] + " stars");
+            System.out.println("Viewed method");
+            System.out.println(totalQuestions[mTopics.get(position).getId()]);
         } else {
             holder.tick.setImageResource(android.R.color.transparent);
             holder.img.setImageResource(android.R.color.transparent);

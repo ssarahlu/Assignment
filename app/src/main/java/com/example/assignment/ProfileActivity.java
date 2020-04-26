@@ -207,6 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
                     .build();
             myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
             Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
+//            myDb.topicResultDao().delAll();
             return null;
         }
 

@@ -345,7 +345,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
                     .build();
-//            myDb.topicResultDao().delAll();
             myDb.topicResultDao().insert(topicId, tr.getEmail(), 0, true);
             System.out.println("Displaying topic id and email " + tr.getTopicId() + " " + tr.getEmail());
             return null;

@@ -1,14 +1,17 @@
 package com.example.assignment;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,6 +19,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private Button beginner, intermediate, advanced;
     private ImageView image;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,21 @@ public class LeaderboardActivity extends AppCompatActivity {
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);
         image = findViewById(R.id.image);
+        builder = new AlertDialog.Builder(this);
+        builder.setMessage("The leaderboard functionality is still being developed. " +
+                "\n \nYou can currently click between the Beginner, Intermediate and Advanced tabs on the leaderboard but the information is static. " +
+                "\n \nPlease come back when v2 is released.")
+                .setTitle("Leaderboard still in development")
+                .setCancelable(true)
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
 
+        AlertDialog alert = builder.create();
+        alert.setTitle("Leaderboard in development");
+        alert.show();
 
         beginner.setOnClickListener(new View.OnClickListener() {
             @Override
