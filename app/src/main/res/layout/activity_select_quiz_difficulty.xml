@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?><!--change to constraint layout-->
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/select_diff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/select_diff"
+    tools:context=".SelectQuizDifficulty">
+
+    <TextView
+        android:id="@+id/let_s_get_s"
+        android:layout_width="300dp"
+        android:layout_height="37dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="@string/let_s_get_s"
+        android:textAppearance="@style/let_s_get_s"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26" />
+
+    <TextView
+        android:id="@+id/no_experien"
+        android:layout_width="224dp"
+        android:layout_height="23dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical"
+        android:text="@string/no_experien"
+        android:textAppearance="@style/no_experien"
+        android:textColor="#AAA5A5"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/beginner"
+        app:layout_constraintTop_toBottomOf="@+id/let_s_get_s" />
+
+    <Button
+        android:id="@+id/beginner"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/beginner_re"
+        android:text="BEGINNER"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_experien" />
+
+    <TextView
+        android:id="@+id/some_experi"
+        android:layout_width="223dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:gravity="center_vertical"
+        android:text="@string/some_experi"
+        android:textAppearance="@style/some_experi"
+        android:textColor="#AAA5A5"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/intermediate"
+        app:layout_constraintTop_toBottomOf="@+id/beginner" />
+
+    <Button
+        android:id="@+id/intermediate"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/intermediate"
+        android:text="INTERMEDIATE"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/some_experi" />
+
+    <TextView
+        android:id="@+id/considerabl"
+        android:layout_width="264dp"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:gravity="center_vertical"
+        android:text="@string/considerabl"
+        android:textAppearance="@style/considerabl"
+        android:textColor="#AAA5A5"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/advanced"
+        app:layout_constraintTop_toBottomOf="@+id/intermediate" />
+
+    <Button
+        android:id="@+id/advanced"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/advanced_re"
+        android:text="ADVANCED"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/considerabl" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
