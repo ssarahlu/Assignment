@@ -1,29 +1,24 @@
 package com.example.assignment;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.room.Room;
 
 import com.example.assignment.Entities.QuizResult;
 import com.example.assignment.Fragments.FragmentTrivia;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 // Used the following repository for reference: https://github.com/EklavyaM/Trivia
 
 public class TriviaQuestionActivity extends AppCompatActivity {
 
     private int mPosInCurrentList = 0;
-    Global g;
+    MusicTriviaResult g;
     private TextView score;
     ProgressBar progressBar;
     private CountDownTimer stopWatch;
@@ -53,7 +48,7 @@ public class TriviaQuestionActivity extends AppCompatActivity {
     }
 
     private void init() {
-        g = Global.getInstance(this);
+        g = MusicTriviaResult.getInstance(this);
         score = findViewById(R.id.score);
         progressBar = findViewById(R.id.progressBar);
 
