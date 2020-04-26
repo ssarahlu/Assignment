@@ -84,14 +84,9 @@ public class TopicQuestionActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
         if (acct != null) {
             email = acct.getEmail();
-            System.out.println(email);
         }
 
-        //on click next display the data - say please make selection if null
-        //questions displayed: check answer
-        //answer displayed: next
         //code sound for wrong
-        //change the viewed course green tick to only happen when they have finished knowledge check
 
         if (mQuestions != null) {
             i = 0;
@@ -162,6 +157,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
         again.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fin.setText("");
                 if (mQuestions != null) {
                     i = 0;
                     stars = 0;
@@ -204,7 +200,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 displayTick();
                 correct = false;
             }
-            Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
             return true;
         } else if (opt2.isChecked()) {
             selectedAnswer = opt2.getText().toString();
@@ -217,7 +212,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 displayTick();
                 correct = false;
             }
-            Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
             return true;
         } else if (opt3.isChecked()) {
             selectedAnswer = opt3.getText().toString();
@@ -230,7 +224,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 displayTick();
                 correct = false;
             }
-            Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
             return true;
         } else if (opt4.isChecked()) {
             selectedAnswer = opt4.getText().toString();
@@ -243,7 +236,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
                 displayTick();
                 correct = false;
             }
-            Toast.makeText(getApplicationContext(), selectedAnswer + " is " + correct, Toast.LENGTH_SHORT).show();
             return true;
 
         } else {

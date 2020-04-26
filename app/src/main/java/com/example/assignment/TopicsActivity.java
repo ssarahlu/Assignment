@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.assignment.Entities.Topic;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class TopicsActivity extends AppCompatActivity {
     private String upperString;
     private String difficulty = "";
     private String email;
+    BottomNavigationView bottomNavigation;
 
 
     @Override
@@ -36,6 +40,38 @@ public class TopicsActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
+        bottomNavigation = findViewById(R.id.navigation);
+        bottomNavigation.setItemIconTintList(null);
+        bottomNavigation.setItemTextColor(null);
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.learning:
+                        intent = new Intent(getApplicationContext(), SelectDifficulty.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.quiz:
+                        intent = new Intent(getApplicationContext(), QuizActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.reward:
+                        intent = new Intent(getApplicationContext(), RewardActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.leaderboard:
+                        intent = new Intent(getApplicationContext(), LeaderboardActivity.class);
+                        startActivity(intent);
+                        return true;
+                    case R.id.profile:
+                        intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        startActivity(intent);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         if (intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE) != null) {
             difficulty = intent.getStringExtra(SelectDifficulty.EXTRA_MESSAGE);
@@ -63,6 +99,7 @@ public class TopicsActivity extends AppCompatActivity {
         for (Topic t : Topic.getTopics()) {
             if (t.getDifficulty().equals(difficulty)) {
                 mTopics.add(t);
+                System.out.println("added");
             }
         }
 

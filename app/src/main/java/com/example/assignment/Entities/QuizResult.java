@@ -3,24 +3,28 @@ package com.example.assignment.Entities;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
-@Entity (primaryKeys = {"email", "difficulty"})
+@Entity(primaryKeys = {"email", "difficulty", "quizType"})
 public class QuizResult {
     @NonNull
     private String email;
     @NonNull
     private String difficulty;
+
     private int result;
+
+    @NonNull
+    private String quizType;
 
     @Ignore
     public QuizResult() {
     }
 
-    public QuizResult(String email, String difficulty, int result) {
+    public QuizResult(String email, String difficulty, int result, String quizType) {
         this.email = email;
         this.difficulty = difficulty;
         this.result = result;
+        this.quizType = quizType;
     }
 
     public String getEmail() {
@@ -45,5 +49,13 @@ public class QuizResult {
 
     public void setResult(int result) {
         this.result = result;
+    }
+
+    public String getQuizType() {
+        return quizType;
+    }
+
+    public void setQuizType(String quizType) {
+        this.quizType = quizType;
     }
 }

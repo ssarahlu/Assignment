@@ -28,6 +28,12 @@ public interface TopicResultDao {
     @Query("SELECT stars FROM TopicResult WHERE email == :email AND topicId == :topicId")
     int getStars(String email, int topicId);
 
+    @Query("SELECT SUM(stars) FROM TopicResult WHERE email == :email AND topicId == :topicId")
+    int getAllStars(String email, int topicId);
+
+    @Query("SELECT SUM(stars) FROM TopicResult WHERE email == :email")
+    int getTotalStars(String email);
+
     @Insert
     void insertAll(TopicResult... trs);
 

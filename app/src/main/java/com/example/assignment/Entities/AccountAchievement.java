@@ -10,18 +10,18 @@ public class AccountAchievement {
     @NonNull
     private String email;
     @NonNull
-    private String achievementId;
+    private int achievementId;
 
     private boolean achieved;
 
-    @Ignore
-    public AccountAchievement() {
-    }
+    private boolean redeemed;
 
-    public AccountAchievement(String email, String achievementId, boolean achieved) {
+
+    public AccountAchievement(String email, int achievementId, boolean achieved, boolean redeemed) {
         this.email = email;
         this.achievementId = achievementId;
         this.achieved = achieved;
+        this.redeemed = redeemed;
     }
 
     public String getEmail() {
@@ -32,11 +32,11 @@ public class AccountAchievement {
         this.email = email;
     }
 
-    public String getAchievementId() {
+    public int getAchievementId() {
         return achievementId;
     }
 
-    public void setAchievementId(String achievementId) {
+    public void setAchievementId(int achievementId) {
         this.achievementId = achievementId;
     }
 
@@ -46,5 +46,13 @@ public class AccountAchievement {
 
     public void setAchieved(boolean achieved) {
         this.achieved = achieved;
+    }
+
+    public boolean isRedeemed() {
+        return redeemed;
+    }
+
+    public void setRedeemed(boolean redeemed) {
+        this.redeemed = redeemed;
     }
 }

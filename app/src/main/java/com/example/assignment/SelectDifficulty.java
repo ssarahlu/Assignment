@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +21,7 @@ public class SelectDifficulty extends AppCompatActivity {
     private String email;
     public static final String EXTRA_MESSAGE = "difficulty";
     BottomNavigationView bottomNavigation;
+    private static final String TAG = "SelectDifficulty";
 
 
     @Override
@@ -31,19 +35,15 @@ public class SelectDifficulty extends AppCompatActivity {
         beginner = findViewById(R.id.beginner);
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);
-        bottomNavigation = findViewById(R.id.navigation);
-
         setTitle("Select Difficulty");
-
+        bottomNavigation = findViewById(R.id.navigation);
+        bottomNavigation.setItemIconTintList(null);
+        bottomNavigation.setItemTextColor(null);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent;
                 switch (item.getItemId()) {
-                    case R.id.learning:
-//                                Intent intent = new Intent(this, SelectDifficulty.class);
-//                                startActivity(intent);
-                        return true;
                     case R.id.quiz:
                         intent = new Intent(getApplicationContext(), QuizActivity.class);
                         startActivity(intent);
@@ -82,9 +82,11 @@ public class SelectDifficulty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TopicsActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, "medium");
+                intent.putExtra(EXTRA_MESSAGE, "intermediate");
                 intent.putExtra("email", email);
                 Toast.makeText(getApplicationContext(), "Intermediate selected", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: starting");
+                startActivity(intent);
 
             }
         });
@@ -94,9 +96,11 @@ public class SelectDifficulty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TopicsActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, "hard");
+                intent.putExtra(EXTRA_MESSAGE, "advanced");
                 intent.putExtra("email", email);
                 Toast.makeText(getApplicationContext(), "Advanced selected", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: starting");
+                startActivity(intent);
 
             }
         });

@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.redeem);
         signIn = findViewById(R.id.sign_in_button);
 
         button.setOnClickListener(new View.OnClickListener() {
