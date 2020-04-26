@@ -24,6 +24,7 @@ public class SelectLearningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_learning);
         setTitle("Select Quiz Topic");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         musicTheory = findViewById(R.id.musicTheory);
         musicTrivia = findViewById(R.id.musicTrivia);
@@ -89,5 +90,12 @@ public class SelectLearningActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected (MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), SelectQuizDifficulty.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

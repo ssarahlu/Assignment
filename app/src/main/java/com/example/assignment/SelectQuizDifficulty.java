@@ -24,6 +24,7 @@ public class SelectQuizDifficulty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_quiz_difficulty);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
@@ -101,7 +102,12 @@ public class SelectQuizDifficulty extends AppCompatActivity {
             }
         });
 
+    }
 
-
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected (MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), QuizActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }

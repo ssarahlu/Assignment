@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ public class TopicInformation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_information);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
@@ -408,6 +410,12 @@ public class TopicInformation extends AppCompatActivity {
         }
     }
 
-
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), TopicsActivity.class);
+        myIntent.putExtra(EXTRA_MESSAGE, upperString.toLowerCase());
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
 
 }

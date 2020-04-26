@@ -48,6 +48,7 @@ public class RewardDetailActivity extends AppCompatActivity {
         image = findViewById(R.id.image);
         cancel = findViewById(R.id.cancel);
         expiry = findViewById(R.id.expiry);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -186,6 +187,13 @@ public class RewardDetailActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), RewardActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 
 

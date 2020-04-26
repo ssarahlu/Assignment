@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -14,6 +15,7 @@ public class HelpCentreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_centre);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         cancel = findViewById(R.id.cancel);
 
@@ -26,6 +28,11 @@ public class HelpCentreActivity extends AppCompatActivity {
             }
         });
 
-
+    }
+    //added back button in the toolbar
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 }
