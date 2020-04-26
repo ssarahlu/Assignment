@@ -25,6 +25,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 
+//this class displays the "knowledge check" or mini-quiz after each course
+//this is where users can earn stars
+//it will play a sound if the user gets the answer right/wrong
 public class TopicQuestionActivity extends AppCompatActivity {
     private int topicId, stars, i, questionId;
     private String topic, answer, selectedAnswer, difficulty, email;
@@ -349,7 +352,6 @@ public class TopicQuestionActivity extends AppCompatActivity {
             myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
                     .build();
             myDb.topicResultDao().insert(topicId, tr.getEmail(), 0, true);
-            System.out.println("Displaying topic id and email " + tr.getTopicId() + " " + tr.getEmail());
             return null;
         }
 

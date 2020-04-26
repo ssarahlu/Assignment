@@ -1,7 +1,6 @@
 package com.example.assignment;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +13,17 @@ import androidx.room.Room;
 
 import com.example.assignment.Entities.Question;
 import com.example.assignment.Entities.Topic;
-import com.example.assignment.Entities.TopicResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
-import java.util.List;
 
+//this adapter class displays a list of topics with the difficulty the user has chosen in the previous screen
+//it will display a green tick if they have finished the whole course (after the knowledge check) and it will also display total stars earnt
+//in that course
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Topic> mTopics;
-    private int mStars, mTotal;
+    private int mStars;
     private RecyclerViewClickListener mListener;
     private Context context;
     private Topic mTopic;
@@ -84,16 +84,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 .allowMainThreadQueries()
                 .build();
 
+        //gets whether the user has viewed (finished) the topic and displays a green tick
         viewed = myDb.topicResultDao().getViewed(email, mTopic.getId());
+        //displays the total stars the user has earnt from each topic
         mStars = myDb.topicResultDao().getStars(email, mTopic.getId());
 
         int[] totalQuestions = new int[mTopics.get(mTopics.size() - 1).getId() + 1];
-        System.out.println("length");
-        System.out.println(totalQuestions.length);
+        Log.d(TAG, "onBindViewHolder: testing whether the array is correct size " + totalQuestions.length);
 
         for (Question q : Question.getQuestions()) {
             if (q.getTopicId() == mTopic.getId()) {
-                System.out.println("Added at this element : " + (mTopic.getId() - 1));
                 totalQuestions[mTopic.getId() - 1]++;
             }
         }

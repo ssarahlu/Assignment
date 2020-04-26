@@ -20,12 +20,6 @@ public interface AccountDao {
     @Query("SELECT * FROM Account WHERE email == :email")
     Account getAcc(String email);
 
-//    @Query("SELECT fName FROM Account WHERE email == :email")
-//    List<Account> fName(String email);
-//
-//    @Query("SELECT lName FROM Account WHERE email == :email")
-//    List<Account> lName(String email);
-
     @Insert
     void insertAll(Account... accounts);
 

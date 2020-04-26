@@ -22,6 +22,7 @@ import java.util.List;
 REFERENCE: https://github.com/EklavyaM/Trivia (Trivia app using Open Trivia DB API and Retrofit)
  */
 
+//this class is the fragment class for music trivia
 public class FragmentTrivia extends Fragment implements View.OnClickListener{
         private View view;
         private TextView question, optionA, optionB, optionC, optionD, pass;

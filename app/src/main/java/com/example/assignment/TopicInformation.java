@@ -22,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 
+//this displays the topic information of each course
 public class TopicInformation extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "topic_id";
@@ -166,6 +167,7 @@ public class TopicInformation extends AppCompatActivity {
 
         learnMore.setOnClickListener(new View.OnClickListener() {
             Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/"));
+
             @Override
             public void onClick(View v) {
                 int id = information.getTopicId();
@@ -176,8 +178,8 @@ public class TopicInformation extends AppCompatActivity {
                         break;
                     case 2:
                         implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=time%20signatures"));
-                            startActivity(implicit);
-                    break;
+                        startActivity(implicit);
+                        break;
                     case 3:
                         implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=treble%20clef"));
                         startActivity(implicit);
@@ -236,6 +238,7 @@ public class TopicInformation extends AppCompatActivity {
     }
 
     private void next() {
+        //if users has finished learnring, the check knowledge button will be displayed so that they can take a mini quiz
         if (i >= mInfo.size()) {
             next.setVisibility(View.GONE);
             previous.setVisibility(View.VISIBLE);
@@ -247,7 +250,7 @@ public class TopicInformation extends AppCompatActivity {
             info.setText("You have finished your learning");
             check.setVisibility(View.VISIBLE);
             learnMore.setVisibility(View.VISIBLE);
-            image.setImageResource(R.drawable.tick);
+            image.setImageResource(R.drawable.finished_course_stars);
             position.setText("");
             i = mInfo.size();
             Log.d(TAG, "onClick: line 167 displays index at " + i);

@@ -19,25 +19,29 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+//this is the login activity that lets users login with their google account
+//we used google login as it is more secure than storing passwords and emails in plain text in our database
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LOGIN_ACTIVITY";
-    private Button button, logout, enter;
-    private TextView email, name;
     SignInButton signIn;
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 0;
     ProgressDialog progressDialog;
-
 
     /**
      * REFERENCE for Google Login API
      * https://www.youtube.com/watch?v=t-yZUqthDMM
      */
 
+    /**
+     * SAMPLE GOOGLE ACCOUNT TO USE FOR TESTING
+     * EMAIL: keynotes3634@gmail.com
+     * PASSWORD: keynotes
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         signIn = findViewById(R.id.sign_in_button);
@@ -73,16 +77,16 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+            //displays spinners for loading account data
             progressDialog = ProgressDialog.show(LoginActivity.this,
                     "Loading",
                     "Logging in. Please wait.", true);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setCancelable(false);
-            progressDialog.show(); // Display Progress Dialog
+            progressDialog.show();
             Thread thread = new Thread() {
                 @Override
                 public void run() {
@@ -109,15 +113,14 @@ public class LoginActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
             Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
             startActivity(intent);
         } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            Log.w(TAG, "Error signIn Result:failed code=" + e.getStatusCode());
+            Log.w(TAG, "Error signIn Result Failed Code = " + e.getStatusCode());
         }
     }
 
+    //if the user is already previously signed in, it will skip past the login option and take them straight to their profile
     @Override
     protected void onStart() {
         super.onStart();
@@ -125,10 +128,11 @@ public class LoginActivity extends AppCompatActivity {
         updateUI(account);
     }
 
-
+    //will go straight to user profile if the user has already logged in
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
             Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+            //will display spinner for loading account information
             progressDialog = ProgressDialog.show(LoginActivity.this,
                     "Loading",
                     "Logging " + account.getEmail() + " in. Please wait.", true);

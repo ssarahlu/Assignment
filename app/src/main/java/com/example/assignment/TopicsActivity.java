@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.assignment.Entities.Topic;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
+//this displays a list of all topics
 public class TopicsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -117,7 +117,6 @@ public class TopicsActivity extends AppCompatActivity {
             public void onClick(View view, int position) {
                 launchTopics(position);
                 Topic topic = mTopics.get(position);
-                Toast.makeText(getApplicationContext(), topic.getTopic() + " is selected!", Toast.LENGTH_SHORT).show();
             }
         };
         mAdapter = new MyAdapter(mTopics, listener);

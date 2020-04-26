@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//users can select quiz difficulty here
 public class SelectQuizDifficulty extends AppCompatActivity {
 
     private Button beginner, intermediate, advanced;
@@ -105,7 +106,7 @@ public class SelectQuizDifficulty extends AppCompatActivity {
     }
 
     //added back button in the toolbar
-    public boolean onOptionsItemSelected (MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), QuizActivity.class);
         startActivityForResult(myIntent, 0);
         return true;

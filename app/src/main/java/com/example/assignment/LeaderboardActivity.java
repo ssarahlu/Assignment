@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//this is the leaderboard activity
+//please note this is just a prototype so it is not fully functional because the google leaderboard API was not free
 public class LeaderboardActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private Button beginner, intermediate, advanced;
@@ -31,6 +33,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);
         image = findViewById(R.id.image);
+        //displays alert diaalog
         builder = new AlertDialog.Builder(this);
         builder.setMessage("The leaderboard functionality is still being developed. " +
                 "\n \nYou can currently click between the Beginner, Intermediate and Advanced tabs on the leaderboard but the information is static. " +
@@ -71,7 +74,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
 
-
+        //navigation bar for bottom of the screen
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);

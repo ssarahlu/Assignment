@@ -100,7 +100,6 @@ public class Information {
         info.add(new Information(45, "A diminished seventh chord contrasts from the half-diminished seventh chord in its seventh note; the half-diminished seventh is a diminished triad with a note added that is a minor seventh from the root.", R.drawable.adim_seventh, 10));
         info.add(new Information(46, "Diminished seventh chords are typically defined by their root note. Here is an example of a diminished seventh chord on C.", R.drawable.c_dim_seventh, 10));
         info.add(new Information(47, "In pop guitar/piano chords, diminished seventh chords are usually written with a “dim7” or “°7” beside the tonic note. The diminished seventh chord illustrated above will be written as “Cdim7 or C°7.", R.drawable.dom_seventh, 10));
-
         info.add(new Information(48, "The brass instrument tuba has the lowest pitch in an orchestra.", R.drawable.tuba, 11));
         info.add(new Information(49, "The lead singer of Green Day is Billie Joe Armstrong.", R.drawable.greenday, 11));
         info.add(new Information(50, "The hit South Korean song Gangnam Style was released by PSY in 2012 and was the first YouTube video to reach 1 billion views.", R.drawable.gangnam_style, 11));

@@ -8,6 +8,7 @@ import com.example.assignment.Entities.AccountAchievement;
 import com.example.assignment.Entities.QuizResult;
 import com.example.assignment.Entities.TopicResult;
 
+//this database class defines all the entities wee used with a Room DB
 @Database(entities = {Account.class, AccountAchievement.class, QuizResult.class, TopicResult.class}, version = 1, exportSchema = false)
 public abstract class MyDatabase extends RoomDatabase {
 

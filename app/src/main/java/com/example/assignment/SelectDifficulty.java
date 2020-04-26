@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//users can select difficulty from this screen
 public class SelectDifficulty extends AppCompatActivity {
 
     private Button beginner, intermediate, advanced;

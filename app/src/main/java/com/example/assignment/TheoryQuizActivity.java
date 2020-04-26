@@ -25,6 +25,8 @@ import java.util.Collections;
 
 import static com.example.assignment.SelectQuizDifficulty.EXTRA_MESSAGE;
 
+//this class displays the theory quizzes
+//it will mark them based on how fast they answer (base score of 5000) and also how many they get correct
 public class TheoryQuizActivity extends AppCompatActivity {
 
     private static final String TAG = "TheoryQuizActivity";

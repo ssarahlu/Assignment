@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//this is to display quiz information and instructions
 public class QuizActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     Button start;
@@ -35,6 +36,7 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        //bottom navigation bar
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

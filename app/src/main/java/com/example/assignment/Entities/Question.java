@@ -51,8 +51,6 @@ public class Question {
         q.add(new Question(20,  "What does mp mean?","Moderately Loud", "Minimum Soft", "Moderately Soft", "Maximum Piano", "Moderately Soft", R.drawable.mp, 5));
         q.add(new Question(21,  "What does mf stand for? ", "Mezzo Forte","Mezzazine Forte", "Medium Forte", "Mezz Fort", "Mezzo Forte", R.drawable.mf, 5 ));
         q.add(new Question(22,  "What is the name of this sign?", "Decrescendo", "Crescent", "Crescendo","Colour","Crescendo",R.drawable.cresc,5 ));
-
-//add olivias questions here
         q.add(new Question(23, "How many semitones does a sharp raise a note?", "1", "0.5", "0.25", "2", "1", R.drawable.sharp, 6));
         q.add(new Question(24, "Which note here is a sharp?", "F#", "G#", "A#", "D#", "F#", R.drawable.accidental_gadf, 6));
         q.add(new Question(25, "Which note here is a sharp?", "D#","A#","G#", "F#", "F#", R.drawable.accidental_dgaf, 6));
@@ -73,7 +71,6 @@ public class Question {
         q.add(new Question(40, "A diminished 7th is a diminished triad, with an added diminished _____ from the root.", "7th", "3rd", "5th", "9th", "7th", R.drawable.adim_seventh, 10));
         q.add(new Question(41, "Diminished 7th chords are typically defined by their _______ note.","Flat", "Seventh", "Last", "Root", "Root", R.drawable.c_dim_seventh, 10));
         q.add(new Question(42, "A diminished 7th is a diminished _______, with an added diminished seventh from the root. ", "Triad", "7th", "Third", "Fourth", "Triad", R.drawable.adim_seventh, 10));
-
         q.add(new Question(43,  "What is the instrument in the orchestra has the lowest pitch?", "Clarinet", "Tuba", "Saxophone","Violin","Tuba",R.drawable.orchestra,11 ));
         q.add(new Question(44,  "Who is the lead singer of Green Day?", "Billie May Cyrus", "Billie Jean", "Billie Eilish","Billie Joe Armstrong","Billie Joe Armstrong",R.drawable.greenday,11 ));
         q.add(new Question(45,  "Which song was the first to reach 1 billion views on YouTube?", "Gangnam Style - PSY", "Baby - Justin Bieber", "See You Again - Charlie Puth","Symphony no. 40 in G Minor - Mozart","Gangnam Style - PSY",R.drawable.youtube,11 ));

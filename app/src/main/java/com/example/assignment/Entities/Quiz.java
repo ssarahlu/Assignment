@@ -135,7 +135,6 @@ public class Quiz {
         quiz.add(new Quiz(30, "easy", "From left to right, what are these 2 notes?", "B, G", "B, E", "B, D", "A, C", "B, D", R.drawable.bass_b_d));
         quiz.add(new Quiz(31, "easy", "From left to right, what are these 2 notes?", "C, D", "C, E", "C, F", "C, G", "C, E", R.drawable.bass_c_e));
         quiz.add(new Quiz(32, "easy", "What does common time mean?", "4 crochet beats in one bar", "The same time as before", "The most common speed", "None of the above", "4 crochet beats in one bar", R.drawable.common_time));
-
         quiz.add(new Quiz(33,"intermediate", "How many semitones does a sharp raise a note?", "1", "0.5", "0.25","2", "1", R.drawable.sharp));
         quiz.add(new Quiz(34,"intermediate", "Which note here is a sharp?","F#", "G#", "A#", "D#","F#", R.drawable.accidental_gadf));
         quiz.add(new Quiz(35,"intermediate", "Which note here is a sharp? ", "D#", "A#", "G#", "F#","F#",R.drawable.accidental_dgaf));
@@ -156,8 +155,6 @@ public class Quiz {
         quiz.add(new Quiz(50, "advanced", "A diminished 7th is a diminished triad, with an added diminished _____ from the root.", "7th", "3rd", "5th", "9th", "7th", R.drawable.adim_seventh));
         quiz.add(new Quiz(51, "advanced", "Diminished 7th chords are typically defined by their _______ note.","Flat", "Seventh", "Last", "Root", "Root", R.drawable.c_dim_seventh));
         quiz.add(new Quiz(52, "advanced","A diminished 7th is a diminished _______, with an added diminished seventh from the root. ", "Triad", "7th", "Third", "Fourth", "Triad", R.drawable.adim_seventh));
-        //add olivias info her e
-
 
         return quiz;
     }

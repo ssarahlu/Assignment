@@ -35,6 +35,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * https://www.youtube.com/watch?v=t-yZUqthDMM
  */
 
+//this class displays the profile of each user logged in - the profile will have the same details as their google plus account
 public class ProfileActivity extends AppCompatActivity {
     private TextView name, email, id, stars, helpCentre, help;
     private ImageView imageView;
@@ -79,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         new GetTotalStars().execute();
 
+        //bottom navigation bar
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);
@@ -136,6 +138,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        //displays users google account details in the profile
         acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             personName = acct.getDisplayName();
@@ -165,6 +168,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
+    //gets total stars a user has earnt to display in the profile page
     private class GetTotalStars extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -183,11 +187,19 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    //this class inserts a new user into the database if they sign in
     private class AddUser extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
                     .build();
+
+            /** USE THIS TO CLEAR ALL THE ENTRIES FROM THE DATABASE
+            myDb.quizResultDao().delAll();
+            myDb.accountAchievementDao().delAll();
+            myDb.accountDao().delAll();
+            myDb.topicResultDao().delAll();
+             */
             myDb.accountDao().insert(new Account(personEmail, acct.getGivenName(), acct.getFamilyName()));
             Log.d(TAG, "onCreate: " + myDb.accountDao().getAcc(personEmail).getFName());
             return null;
@@ -210,14 +222,14 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    /** REFERENCE for feedback dialog: https://www.youtube.com/watch?v=e3WfylNHHC4
-    */
+    /**
+     * REFERENCE for feedback dialog: https://www.youtube.com/watch?v=e3WfylNHHC4
+     */
     // Note: this dialog does not actually save the user's feedback anywhere, just a prototype
     private void showDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
         dialog.setTitle("Your feedback is important to us");
         final EditText feedbackInput = new EditText(ProfileActivity.this);
-        //feedbackInput.setSingleLine(false);
         feedbackInput.setLines(4);
         dialog.setView(feedbackInput);
         dialog.setPositiveButton("Submit", new DialogInterface.OnClickListener() {

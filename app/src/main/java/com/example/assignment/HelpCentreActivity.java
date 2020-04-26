@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+//help centre to display FAQ
 public class HelpCentreActivity extends AppCompatActivity {
     private ImageButton cancel;
 

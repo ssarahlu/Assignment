@@ -25,14 +25,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+//this class displays the rewards in a recylcerview
+//if the user has earnt the reward (met the condition), it display text in green saying the reward has been achieved
 public class RewardActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private RecyclerView mRecyclerView;
     private String email;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Rewards mReward;
-    private AccountAchievement mAccAch;
     private ArrayList<Rewards> mRewards = new ArrayList<>();
     private List<AccountAchievement> mAccAchs = new ArrayList<>();
     MyDatabase myDb;
@@ -58,6 +58,8 @@ public class RewardActivity extends AppCompatActivity {
         totalStars = findViewById(R.id.stars);
         mRecyclerView = findViewById(R.id.rvList);
         mRecyclerView.setHasFixedSize(true);
+
+        //bottom nav bar
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);
@@ -108,6 +110,8 @@ public class RewardActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    //on click, the user can see the reward details
+    // E.g. it will show the QR code if they have achieved the reward (voucher)
     private void launchRewardDetail() {
         Intent intent = new Intent(this, RewardDetailActivity.class);
         intent.putExtra("id", String.valueOf(rewardId));
@@ -118,7 +122,8 @@ public class RewardActivity extends AppCompatActivity {
 
     }
 
-
+    //gets all the different account achievements of the user so that we can display the rewards accordingly
+    //e.g. user will not be able to see the QR codes of rewards they haven't received yet
     private class GetAccountAchievements extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -139,6 +144,7 @@ public class RewardActivity extends AppCompatActivity {
     }
 
 
+    //gets total stars a user has earnt from knowledge checks
     private class GetTotalStars extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -158,7 +164,7 @@ public class RewardActivity extends AppCompatActivity {
 
     }
 
-
+    //inserts a new achievement if the user has met the condition (e.g. over 20 stars earnt)
     private class InsertAccountAchievements extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -170,7 +176,6 @@ public class RewardActivity extends AppCompatActivity {
                     achievementId = r.getId();
                     mAccAchs.add(new AccountAchievement(email, achievementId, true, false));
                     myDb.accountAchievementDao().insertSingle(email, achievementId, true, false);
-                    System.out.println(achievementId);
                 }
             }
             for (AccountAchievement a : mAccAchs) {

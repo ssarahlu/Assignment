@@ -23,6 +23,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+//this class shows the detailed reward attributes e.g. the user can see the qr voucher code
+//this is really handy for when the user wants to redeem a voucher at UNSW - they can conveniently find it in one app
+//when they have used the reward, they mark it as redeemed and the user will not be allowed to view the used QR code anymore
 public class RewardDetailActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigation;
     private int rewardId = 0;
@@ -65,6 +68,7 @@ public class RewardDetailActivity extends AppCompatActivity {
         redeem.setVisibility(View.GONE);
         new GetAccountAchievements().execute();
 
+        //bottom nav bar
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);
@@ -118,6 +122,7 @@ public class RewardDetailActivity extends AppCompatActivity {
 
     }
 
+    //gets all the users account achievements to display the rewards appropriately
     private class GetAccountAchievements extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -144,7 +149,6 @@ public class RewardDetailActivity extends AppCompatActivity {
 
     }
 
-
     private void updateUi() {
         if (achieved == false) {
             name.setText(reward.getName());
@@ -169,6 +173,7 @@ public class RewardDetailActivity extends AppCompatActivity {
 
     }
 
+    //when user clicks redeem, it will update the attribute redeemed in the database as true so they can no longer see the QR code
     private class UpdateRedemption extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {

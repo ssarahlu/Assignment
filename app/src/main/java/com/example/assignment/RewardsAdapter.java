@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import java.util.ArrayList;
 import java.util.List;
 
+//adapter class to display all the rewards in a recycler view
 public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHolder> {
     private ArrayList<Rewards> mRewards;
     private List<AccountAchievement> mAccountAchievements = new ArrayList<>();
@@ -91,6 +92,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
         achieved = myDb.accountAchievementDao().getAchieved(email, mRewards.get(position).getId());
         redeemed = myDb.accountAchievementDao().getRedeemed(email, mRewards.get(position).getId());
 
+        //sets text as green if the reward is achieved
         if (achieved == true) {
             holder.achieved.setText("Reward achieved");
             holder.achieved.setTextColor(Color.parseColor("#8BBC64"));
@@ -99,6 +101,7 @@ public class RewardsAdapter extends RecyclerView.Adapter<RewardsAdapter.MyViewHo
             } else {
                 holder.redeemed.setText("Reward not redeemed yet");
             }
+            //sets text as blue if the reward isn't achieved yet
         } else if (achieved == false) {
             holder.achieved.setText("Reward not achieved yet");
             holder.achieved.setTextColor(Color.parseColor("#2886E2"));

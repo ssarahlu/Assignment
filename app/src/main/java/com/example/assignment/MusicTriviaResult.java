@@ -29,9 +29,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
-REFERENCE: https://github.com/EklavyaM/Trivia (Trivia app using Open Trivia DB API and Retrofit)
+ * REFERENCE: https://github.com/EklavyaM/Trivia (Trivia app using Open Trivia DB API and Retrofit)
  */
 
+//this class displays the results of the music trivia test into a dialog
 public class MusicTriviaResult {
     private static MusicTriviaResult instance;
     private static MusicTriviaService mAPIService;
