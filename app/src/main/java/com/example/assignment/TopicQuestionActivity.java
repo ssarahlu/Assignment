@@ -282,7 +282,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
         if (i >= mQuestions.size()) {
             new MyViewedTask().execute();
             new GetStarsTask().execute();
-            tr = new TopicResult(Integer.valueOf(topicId), email, stars, true);
+            tr = new TopicResult(topicId, email, stars, true);
             new UpdateStarsTask().execute();
             next.setVisibility(View.GONE);
             grp.setVisibility(View.GONE);
@@ -346,7 +346,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
             myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
                     .build();
 //            myDb.topicResultDao().delAll();
-            myDb.topicResultDao().insert(tr.getTopicId(), tr.getEmail(), 0, true);
+            myDb.topicResultDao().insert(topicId, tr.getEmail(), 0, true);
             System.out.println("Displaying topic id and email " + tr.getTopicId() + " " + tr.getEmail());
             return null;
         }

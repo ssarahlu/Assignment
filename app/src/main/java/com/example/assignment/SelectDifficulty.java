@@ -35,7 +35,7 @@ public class SelectDifficulty extends AppCompatActivity {
         beginner = findViewById(R.id.beginner);
         intermediate = findViewById(R.id.intermediate);
         advanced = findViewById(R.id.advanced);
-        setTitle("Select Difficulty");
+        setTitle("Select Course Difficulty");
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
         bottomNavigation.setItemTextColor(null);

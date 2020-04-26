@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,8 +13,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.assignment.Entities.Quiz;
+import com.example.assignment.Entities.QuizResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +33,7 @@ public class TheoryQuizActivity extends AppCompatActivity {
     private RadioButton optionA, optionB, optionC, optionD;
     private Button next, submit;
     private String difficulty, answer, email, selectedAnswer;
-    private TextView question, position, results, score;
+    private TextView question, position, results, score, highscore;
     private ImageButton cancel;
     private ImageView imgquest;
     private int id, i;
@@ -37,6 +42,10 @@ public class TheoryQuizActivity extends AppCompatActivity {
     private Quiz q;
     private boolean correct = false;
     long timeStarted, timeEnded, timeTaken;
+    MyDatabase myDb;
+    private int myDbresult;
+    private QuizResult qr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +73,7 @@ public class TheoryQuizActivity extends AppCompatActivity {
         options = findViewById(R.id.options);
         results = findViewById(R.id.results);
         score = findViewById(R.id.score);
+        highscore = findViewById(R.id.highscore);
         next.setVisibility(View.VISIBLE);
         submit.setVisibility(View.GONE);
         results.setVisibility(View.GONE);
@@ -78,13 +88,13 @@ public class TheoryQuizActivity extends AppCompatActivity {
             }
         }
 
-        setTitle("Quiz");
+        setTitle("Theory Quiz");
 
-//        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-//        if (acct != null) {
-//            email = acct.getEmail();
-//            System.out.println(email);
-//        }
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+        if (acct != null) {
+            email = acct.getEmail();
+            System.out.println(email);
+        }
 
         if (mQuiz != null) {
             Collections.shuffle(mQuiz);
@@ -95,6 +105,7 @@ public class TheoryQuizActivity extends AppCompatActivity {
             optionB.setText(q.getOp2());
             optionC.setText(q.getOp3());
             optionD.setText(q.getOp4());
+            highscore.setText("");
             imgquest.setImageResource(q.getPhoto());
             answer = q.getAnswer();
             id = q.getId();
@@ -125,15 +136,14 @@ public class TheoryQuizActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                question.setText("Congratulations!");
-                imgquest.setVisibility(View.GONE);
+                baseScore = (baseScore - (int) timeTaken) + (correctAnswers * 100);
                 options.setVisibility(View.GONE);
                 results.setVisibility(View.VISIBLE);
                 score.setVisibility(View.VISIBLE);
-                results.setText("You answered " + correctAnswers + " of 10 questions correctly");
-                baseScore = (baseScore - (int) timeTaken) + (correctAnswers * 100);
-                score.setText("Score: " + baseScore);
                 submit.setVisibility(View.GONE);
+                new GetStoredScore().execute();
+                new InsertScoresTask().execute();
+                new UpdateScoresTask().execute();
 
             }
         });
@@ -146,7 +156,7 @@ public class TheoryQuizActivity extends AppCompatActivity {
             next.setVisibility(View.GONE);
             submit.setVisibility(View.VISIBLE);
             timeEnded = System.currentTimeMillis();
-            timeTaken = (timeEnded - timeStarted)/1000;
+            timeTaken = (timeEnded - timeStarted) / 1000;
             i = 10;
 
         } else if (i <= 0) {
@@ -231,5 +241,101 @@ public class TheoryQuizActivity extends AppCompatActivity {
         }
     }
 
+    private class InsertScoresTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+
+            myDb.quizResultDao().insertSingleResult(email, difficulty, baseScore, "theory");
+
+            Log.d(TAG, "doInBackground:  ");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            Log.d(TAG, "onPostExecute: FINISHED");
+
+        }
+
     }
+
+    private class UpdateScoresTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+
+            if (baseScore > myDbresult) {
+                qr = new QuizResult(email, difficulty, baseScore, "theory");
+                myDb.quizResultDao().updateQuizResult(qr);
+                Log.d(TAG, "doInBackground: New result updated! ");
+            }
+            Log.d(TAG, "doInBackground:  ");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            updateUi();
+            Log.d(TAG, "onPostExecute: FINISHED");
+
+        }
+
+    }
+
+    private class GetStoredScore extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            myDb = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, "my-db.db")
+                    .build();
+
+            myDbresult = myDb.quizResultDao().getResult(email, difficulty, "theory");
+            Log.d(TAG, "doInBackground: get my saved result " + myDbresult);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            super.onPostExecute(v);
+            Log.d(TAG, "onPostExecute: FINISHED");
+
+        }
+
+    }
+
+    private void updateUi() {
+        if (myDbresult > baseScore) {
+            question.setText("Congratulations!");
+            results.setText("You answered " + correctAnswers + " of 10 questions correctly");
+            score.setText("Score: " + baseScore);
+            imgquest.setImageResource(R.drawable.no_star);
+            highscore.setText("You did not beat your previous high score of " + myDbresult);
+        } else if (myDbresult == baseScore) {
+            question.setText("Congratulations!");
+            results.setText("You answered " + correctAnswers + " of 10 questions correctly");
+            score.setText("Score: " + baseScore);
+            imgquest.setImageResource(R.drawable.neutral);
+            highscore.setText("You got the same score as your current high score " + baseScore);
+        } else if (myDbresult == 0) {
+            question.setText("Congratulations!");
+            results.setText("You answered " + correctAnswers + " of 10 questions correctly");
+            score.setText("Score: " + baseScore);
+            imgquest.setImageResource(R.drawable.happy);
+            highscore.setText("Your recorded high score is " + baseScore);
+        } else {
+            question.setText("Congratulations!");
+            results.setText("You answered " + correctAnswers + " of 10 questions correctly");
+            score.setText("Score: " + baseScore);
+            imgquest.setImageResource(R.drawable.happy);
+            highscore.setText("Congratulations! You beat your previous high score of " + myDbresult + ". Your new high score is " + baseScore);
+        }
+
+
+    }
+
+}
 

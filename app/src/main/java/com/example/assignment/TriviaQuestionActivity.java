@@ -1,16 +1,22 @@
 package com.example.assignment;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
 
+import com.example.assignment.Entities.QuizResult;
 import com.example.assignment.Fragments.FragmentTrivia;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 // Used the following repository for reference: https://github.com/EklavyaM/Trivia
 
@@ -18,28 +24,38 @@ public class TriviaQuestionActivity extends AppCompatActivity {
 
     private int mPosInCurrentList = 0;
     Global g;
-
     private TextView score;
     ProgressBar progressBar;
     private CountDownTimer stopWatch;
+    MyDatabase myDb;
+    private String email, difficulty, scoreString;
+    private int myDbresult;
+    private QuizResult qr;
 
     int maxTime = 45000;
     int countDownInterval = 5;
     int remainingProgress;
+    private static final String TAG = "TriviaQuestionActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_trivia_question);
         init();
         loadNextFragment();
+        setTitle("Trivia Quiz");
+
+        Intent intent = getIntent();
+        difficulty = intent.getStringExtra("difficulty");
+
+
     }
 
-    private void init(){
+    private void init() {
         g = Global.getInstance(this);
-        score = (TextView) findViewById(R.id.score);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        score = findViewById(R.id.score);
+        progressBar = findViewById(R.id.progressBar);
 
         score.setText("0");
 
@@ -49,14 +65,14 @@ public class TriviaQuestionActivity extends AppCompatActivity {
         additionalTime(0);
     }
 
-    public void onAnswerClicked(boolean isCorrect, String difficulty){
+    public void onAnswerClicked(boolean isCorrect, String difficulty) {
 
         stopWatch.cancel();
 
         int marks = 0;
         float penalty = 0;
 
-        switch(difficulty){
+        switch (difficulty) {
             case "easy":
                 marks = 5;
                 penalty = 3f;
@@ -72,28 +88,27 @@ public class TriviaQuestionActivity extends AppCompatActivity {
         }
 
 
-        if(isCorrect) {
+        if (isCorrect) {
             g.questionsCorrectlyAnswered++;
-            additionalTime(marks*1000);
+            additionalTime(marks * 1000);
             g.correctAnswer(marks);
-            String scoreString = Integer.toString(g.getScore());
+            scoreString = Integer.toString(g.getScore());
             score.setText(scoreString);
 
-        }
-        else{
-            additionalTime((int)(-penalty*1000));
+        } else {
+            additionalTime((int) (-penalty * 1000));
         }
 
         nextQuestion();
     }
 
-    public void nextQuestion(){
+    public void nextQuestion() {
 
         mPosInCurrentList++;
         g.questionsEncountered++;
 
-        if(mPosInCurrentList>=g.currentList.size()){
-            if(g.nextList.size()>0){
+        if (mPosInCurrentList >= g.currentList.size()) {
+            if (g.nextList.size() > 0) {
                 g.currentList.clear();
                 g.currentList.addAll(g.nextList);
 
@@ -101,40 +116,38 @@ public class TriviaQuestionActivity extends AppCompatActivity {
 
                 mPosInCurrentList = 0;
                 loadNextFragment();
-            }
-            else{
+            } else {
                 g.gameOver(this);
             }
-        }
-        else{
+        } else {
             loadNextFragment();
         }
     }
 
-    private void loadNextFragment(){
+    private void loadNextFragment() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 FragmentTrivia fragment = FragmentTrivia.newInstance(mPosInCurrentList);
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_layout,fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit();
             }
-        },100);
+        }, 100);
 
     }
 
-    private void additionalTime(int time){
+    private void additionalTime(int time) {
         remainingProgress = progressBar.getProgress();
 
         int amount = remainingProgress + time;
 
-        if(amount<=0){
+        if (amount <= 0) {
             progressBar.setProgress(0);
             g.gameOver(TriviaQuestionActivity.this);
         }
 
-        if(amount>=maxTime){
+        if (amount >= maxTime) {
             stopWatch = new CountDownTimer(maxTime, countDownInterval) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -147,9 +160,7 @@ public class TriviaQuestionActivity extends AppCompatActivity {
                     g.gameOver(TriviaQuestionActivity.this);
                 }
             }.start();
-        }
-
-        else {
+        } else {
             stopWatch = new CountDownTimer(amount, countDownInterval) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -166,11 +177,13 @@ public class TriviaQuestionActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         stopWatch.cancel();
         Intent intent = new Intent(this, StartTriviaActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
+
+
 }

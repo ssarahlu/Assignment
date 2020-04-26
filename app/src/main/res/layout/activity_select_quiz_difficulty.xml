@@ -17,7 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center_vertical"
-        android:text="@string/let_s_get_s"
+        android:text="Quiz me on..."
         android:textAppearance="@style/let_s_get_s"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintVertical_bias="0.247" />
 
     <TextView
         android:id="@+id/no_experien"
@@ -36,7 +36,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="40dp"
         android:gravity="center_vertical"
-        android:text="@string/no_experien"
+        android:text="Beginner music theory or trivia"
         android:textAppearance="@style/no_experien"
         android:textColor="#AAA5A5"
         android:textSize="16sp"
@@ -61,13 +61,13 @@
 
     <TextView
         android:id="@+id/some_experi"
-        android:layout_width="223dp"
+        android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="28dp"
         android:gravity="center_vertical"
-        android:text="@string/some_experi"
+        android:text="Intermediate music theory or trivia"
         android:textAppearance="@style/some_experi"
         android:textColor="#AAA5A5"
         android:textSize="16sp"
@@ -98,7 +98,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="28dp"
         android:gravity="center_vertical"
-        android:text="@string/considerabl"
+        android:text="Advanced music theory or trivia"
         android:textAppearance="@style/considerabl"
         android:textColor="#AAA5A5"
         android:textSize="16sp"
@@ -121,6 +121,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/considerabl" />
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="start"
+        android:background="#FFFFFF"
+        android:checkable="true"
+        app:itemIconTint="#909090"
+        app:itemTextColor="#909090"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/nav_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

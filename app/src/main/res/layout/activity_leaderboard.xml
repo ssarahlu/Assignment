@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".LeaderboardActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_gravity="start"
-        android:checkable="true"
         android:background="#FFFFFF"
+        android:checkable="true"
         app:itemIconTint="@color/state_colour"
         app:itemTextColor="#909090"
         app:labelVisibilityMode="labeled"

@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintVertical_bias="0.21" />
 
     <TextView
         android:id="@+id/no_experien"
@@ -129,7 +129,7 @@
         android:layout_gravity="start"
         android:background="#FFFFFF"
         android:checkable="true"
-        app:itemIconTint="@color/state_colour"
+        app:itemIconTint="#909090"
         app:itemTextColor="#909090"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -42,7 +42,7 @@
         android:padding="10dp"
         android:text="Option A"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
@@ -62,7 +62,7 @@
 
         android:text="Option B"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
 
@@ -83,7 +83,7 @@
 
         android:text="Option C"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
@@ -103,7 +103,7 @@
 
         android:text="Option D"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView

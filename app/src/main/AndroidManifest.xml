@@ -17,10 +17,14 @@
         <activity android:name=".RewardActivity" />
         <activity android:name=".QuizActivity" />
         <activity android:name=".TopicQuestionActivity" />
+        <activity android:name=".TheoryQuizActivity" />
+        <activity android:name=".TriviaQuestionActivity" />
+        <activity android:name=".StartTriviaActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".TopicsActivity" />
         <activity android:name=".TopicInformation" />
         <activity android:name=".SelectDifficulty" />
+        <activity android:name=".SelectLearningActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".SelectQuizDifficulty" />
         <activity android:name=".MainActivity">

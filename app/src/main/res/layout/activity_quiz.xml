@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".QuizActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,7 +14,7 @@
         android:layout_gravity="start"
         android:background="#FFFFFF"
         android:checkable="true"
-        app:itemIconTint="@color/state_colour"
+        app:itemIconTint="#909090"
         app:itemTextColor="#909090"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,14 +32,14 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/quiz_home" />
 
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="484dp"
+        android:layout_marginTop="460dp"
         android:background="@drawable/check_your"
         android:text="START"
         android:textColor="#349DE7"

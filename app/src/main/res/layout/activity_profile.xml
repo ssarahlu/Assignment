@@ -10,7 +10,7 @@
     <View
         android:id="@+id/top_backgro"
         android:layout_width="431dp"
-        android:layout_height="186dp"
+        android:layout_height="163dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/top_backgro"
@@ -182,7 +182,7 @@
         android:id="@+id/imageView6"
         android:layout_width="19dp"
         android:layout_height="16dp"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="44dp"
         app:layout_constraintBottom_toBottomOf="@+id/top_backgro"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:srcCompat="@drawable/star" />
@@ -202,7 +202,7 @@
         android:id="@+id/profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
         android:text="Profile"
         android:textSize="20sp"
         android:textStyle="bold"

@@ -23,7 +23,7 @@ import retrofit2.Response;
 import static com.example.assignment.SelectLearningActivity.EXTRA_MESSAGE;
 
 // Used the following repository for reference: https://github.com/EklavyaM/Trivia
-public class StartTriviaActivity extends AppCompatActivity implements View.OnClickListener{
+public class StartTriviaActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Global g;
     private Button musicTrivia;
@@ -41,15 +41,7 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
         g.reset();
 
         getView();
-
-//        musicTrivia.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//               startActivity(intent);
-//               Toast.makeText(getApplicationContext(), "Quiz will start now", Toast.LENGTH_SHORT).show();
-//           }
-//        });
+        setTitle("Trivia Quiz");
 
     }
 
@@ -72,36 +64,33 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    private void getCurrentList(final View view){
+    private void getCurrentList(final View view) {
         final TextView textView = (TextView) view;
 
         Intent intent = getIntent();
         difficulty = intent.getStringExtra(EXTRA_MESSAGE).toLowerCase();
-        System.out.println(difficulty);
 
-        g.getApiService().getQuestion("5", g.chosenCategory, difficulty,"multiple").enqueue(new Callback<MusicTriviaList>() {
+        g.getApiService().getQuestion("5", g.chosenCategory, difficulty, "multiple").enqueue(new Callback<MusicTriviaList>() {
             @Override
             public void onResponse(Call<MusicTriviaList> call, Response<MusicTriviaList> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     MusicTriviaList list = response.body();
                     List<MusicTrivia> ls = list.getResults();
 
-                    if(ls.isEmpty()){
+                    if (ls.isEmpty()) {
                         getCurrentList(view);
-                    }
-                    else {
+                    } else {
                         g.currentList.clear();
                         g.currentList.addAll(ls);
                         g.setDifficulty(difficulty);
                         g.loadNextList();
                         Intent intent = new Intent(StartTriviaActivity.this, TriviaQuestionActivity.class);
+                        intent.putExtra("difficulty", difficulty);
                         startActivity(intent);
                         finish();
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(StartTriviaActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                    textView.setTextColor(Color.WHITE);
                 }
 
             }
@@ -115,7 +104,7 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
     }
 
