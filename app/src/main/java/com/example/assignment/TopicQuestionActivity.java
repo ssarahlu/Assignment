@@ -1,14 +1,12 @@
 package com.example.assignment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +17,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.assignment.Entities.Information;
 import com.example.assignment.Entities.Question;
 import com.example.assignment.Entities.TopicResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,6 +42,8 @@ public class TopicQuestionActivity extends AppCompatActivity {
     MyDatabase myDb;
     int addedStars, mStars;
     private String finished;
+    MediaPlayer mpWrong;
+    MediaPlayer mpRight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,8 @@ public class TopicQuestionActivity extends AppCompatActivity {
         topicId = Integer.valueOf(id);
         topic = intent.getStringExtra("topic");
         difficulty = intent.getStringExtra(EXTRA_MESSAGE);
+        mpWrong = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
+        mpRight = MediaPlayer.create(getApplicationContext(), R.raw.right);
 
         opt1 = findViewById(R.id.opt1);
         opt2 = findViewById(R.id.opt2);
@@ -194,6 +195,7 @@ public class TopicQuestionActivity extends AppCompatActivity {
             if (selectedAnswer.equals(answer)) {
                 img1.setImageResource(R.drawable.correct);
                 correct = true;
+                mpRight.start();
                 stars++;
             } else {
                 img1.setImageResource(R.drawable.wrong);
@@ -206,11 +208,13 @@ public class TopicQuestionActivity extends AppCompatActivity {
             if (selectedAnswer.equals(answer)) {
                 img2.setImageResource(R.drawable.correct);
                 correct = true;
+                mpRight.start();
                 stars++;
             } else {
                 img2.setImageResource(R.drawable.wrong);
                 displayTick();
                 correct = false;
+                mpWrong.start();
             }
             return true;
         } else if (opt3.isChecked()) {
@@ -218,11 +222,13 @@ public class TopicQuestionActivity extends AppCompatActivity {
             if (selectedAnswer.equals(answer)) {
                 img3.setImageResource(R.drawable.correct);
                 correct = true;
+                mpRight.start();
                 stars++;
             } else {
                 img3.setImageResource(R.drawable.wrong);
                 displayTick();
                 correct = false;
+                mpWrong.start();
             }
             return true;
         } else if (opt4.isChecked()) {
@@ -230,17 +236,20 @@ public class TopicQuestionActivity extends AppCompatActivity {
             if (selectedAnswer.equals(answer)) {
                 img4.setImageResource(R.drawable.correct);
                 correct = true;
+                mpRight.start();
                 stars++;
             } else {
                 img4.setImageResource(R.drawable.wrong);
                 displayTick();
                 correct = false;
+                mpWrong.start();
             }
             return true;
 
         } else {
             next.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please select an answer", Toast.LENGTH_SHORT).show();
+            mpWrong.start();
             return false;
         }
     }
