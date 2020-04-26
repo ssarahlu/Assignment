@@ -29,7 +29,8 @@ public class HelpCentreActivity extends AppCompatActivity {
         });
 
     }
-    //added back button in the toolbar
+
+    // Added back button in the toolbar
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
         startActivityForResult(myIntent, 0);

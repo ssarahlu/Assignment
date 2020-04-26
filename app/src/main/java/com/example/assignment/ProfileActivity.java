@@ -120,15 +120,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-//        helpButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), HelpCentreActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-
         helpCenterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +129,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        // Feedback is just a prototype, dialog not actually stored anywhere
         feedbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -220,7 +210,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    // Reference: https://www.youtube.com/watch?v=e3WfylNHHC4
+    /** REFERENCE for feedback dialog: https://www.youtube.com/watch?v=e3WfylNHHC4
+    */
+    // Note: this dialog does not actually save the user's feedback anywhere, just a prototype
     private void showDialog() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
         dialog.setTitle("Your feedback is important to us");

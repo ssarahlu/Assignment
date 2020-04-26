@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.assignment.Data.MusicTrivia;
-import com.example.assignment.Global;
+import com.example.assignment.MusicTriviaResult;
 import com.example.assignment.R;
 import com.example.assignment.TriviaQuestionActivity;
 
@@ -18,12 +18,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Used the following repository for reference: https://github.com/EklavyaM/Trivia
+/**
+REFERENCE: https://github.com/EklavyaM/Trivia (Trivia app using Open Trivia DB API and Retrofit)
+ */
 
 public class FragmentTrivia extends Fragment implements View.OnClickListener{
         private View view;
         private TextView question, optionA, optionB, optionC, optionD, pass;
-        private Global g;
+        private MusicTriviaResult g;
         private MusicTrivia trivia;
         private int position;
 
@@ -40,7 +42,7 @@ public class FragmentTrivia extends Fragment implements View.OnClickListener{
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
             view = inflater.inflate(R.layout.fragment_trivia, container, false);
 
-            g = Global.getInstance(getContext());
+            g = MusicTriviaResult.getInstance(getContext());
 
             position = getArguments().getInt("POSITION");
             trivia = g.currentList.get(position);
@@ -51,7 +53,7 @@ public class FragmentTrivia extends Fragment implements View.OnClickListener{
         }
 
         private void init(){
-            g = Global.getInstance(getContext());
+            g = MusicTriviaResult.getInstance(getContext());
             question = view.findViewById(R.id.question);
             optionA = view.findViewById(R.id.option_A);
             optionB = view.findViewById(R.id.option_B);

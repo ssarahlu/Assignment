@@ -28,10 +28,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-// Used the following repository for reference: https://github.com/EklavyaM/Trivia
+/**
+REFERENCE: https://github.com/EklavyaM/Trivia (Trivia app using Open Trivia DB API and Retrofit)
+ */
 
-public class Global {
-    private static Global instance;
+public class MusicTriviaResult {
+    private static MusicTriviaResult instance;
     private static MusicTriviaService mAPIService;
     private Context mContext;
     public List<MusicTrivia> currentList;
@@ -62,16 +64,16 @@ public class Global {
         this.difficulty = difficulty;
     }
 
-    private Global(Context context) {
+    private MusicTriviaResult(Context context) {
         mContext = context;
         mAPIService = MusicTriviaUtils.getAPIService();
         currentList = new ArrayList<>();
         nextList = new ArrayList<>();
     }
 
-    public static synchronized Global getInstance(Context context) {
+    public static synchronized MusicTriviaResult getInstance(Context context) {
         if (instance == null)
-            instance = new Global(context);
+            instance = new MusicTriviaResult(context);
         return instance;
     }
 

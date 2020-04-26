@@ -25,7 +25,7 @@ import static com.example.assignment.SelectLearningActivity.EXTRA_MESSAGE;
 // Used the following repository for reference: https://github.com/EklavyaM/Trivia
 public class StartTriviaActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Global g;
+    private MusicTriviaResult g;
     private Button musicTrivia;
     private SharedPreferences preferences;
     private String difficulty;
@@ -37,7 +37,7 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_start_trivia);
 
         preferences = getSharedPreferences("preferences", MODE_PRIVATE);
-        g = Global.getInstance(getApplicationContext());
+        g = MusicTriviaResult.getInstance(getApplicationContext());
         g.reset();
 
         getView();
