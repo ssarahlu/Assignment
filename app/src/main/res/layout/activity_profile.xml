@@ -9,13 +9,12 @@
 
     <View
         android:id="@+id/top_backgro"
-        android:layout_width="430dp"
-        android:layout_height="204dp"
+        android:layout_width="431dp"
+        android:layout_height="186dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/top_backgro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.065" />
 
     <TextView
         android:id="@+id/name"
@@ -38,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="73dp"
+        android:layout_marginTop="60dp"
         android:text="Name"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
@@ -46,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/top_backgro"
-        app:layout_constraintVertical_bias="0.003" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/id"
@@ -181,9 +180,9 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="68dp"
+        android:layout_width="19dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="65dp"
         app:layout_constraintBottom_toBottomOf="@+id/top_backgro"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:srcCompat="@drawable/star" />
@@ -192,8 +191,6 @@
         android:id="@+id/stars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
         android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
