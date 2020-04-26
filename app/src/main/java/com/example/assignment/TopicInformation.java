@@ -35,7 +35,7 @@ public class TopicInformation extends AppCompatActivity {
     private ImageView image;
     private TextView title, info, position;
     private ImageButton cancel;
-    private Button next, previous, check;
+    private Button next, previous, check, learnMore;
     private ImageButton vv;
     ConstraintSet constraintSet;
     ConstraintLayout constraintLayout;
@@ -65,6 +65,7 @@ public class TopicInformation extends AppCompatActivity {
         previous = findViewById(R.id.previous);
         position = findViewById(R.id.position);
         check = findViewById(R.id.check);
+        learnMore = findViewById(R.id.learnMore);
         vv = findViewById(R.id.vv);
         vv.setVisibility(View.GONE);
         url = null;
@@ -103,6 +104,7 @@ public class TopicInformation extends AppCompatActivity {
             next.setVisibility(View.VISIBLE);
             previous.setVisibility(View.GONE);
             check.setVisibility(View.GONE);
+            learnMore.setVisibility(View.GONE);
             constraintLayout = findViewById(R.id.constraintLayout);
             constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
@@ -160,6 +162,62 @@ public class TopicInformation extends AppCompatActivity {
 
         });
 
+        learnMore.setOnClickListener(new View.OnClickListener() {
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/"));
+            @Override
+            public void onClick(View v) {
+                int id = information.getTopicId();
+                switch (id) {
+                    case 1:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=rhythm%20music"));
+                        startActivity(implicit);
+                        break;
+                    case 2:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=time%20signatures"));
+                            startActivity(implicit);
+                    break;
+                    case 3:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=treble%20clef"));
+                        startActivity(implicit);
+                        break;
+                    case 4:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=bass%20clef"));
+                        startActivity(implicit);
+                        break;
+                    case 5:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=dynamics%20music"));
+                        startActivity(implicit);
+                        break;
+                    case 6:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=sharps%20music"));
+                        startActivity(implicit);
+                        break;
+                    case 7:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=flats%20music"));
+                        startActivity(implicit);
+                        break;
+                    case 8:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=tonality%20music"));
+                        startActivity(implicit);
+                        break;
+                    case 9:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=dominant%207ths"));
+                        startActivity(implicit);
+                        break;
+                    case 10:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=diminished%207ths"));
+                        startActivity(implicit);
+                        break;
+                    case 11:
+                        implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/#q=music%20trivia"));
+                        startActivity(implicit);
+                        break;
+                }
+
+            }
+
+        });
+
         vv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,6 +244,7 @@ public class TopicInformation extends AppCompatActivity {
             //sets components with data
             info.setText("You have finished your learning");
             check.setVisibility(View.VISIBLE);
+            learnMore.setVisibility(View.VISIBLE);
             image.setImageResource(R.drawable.tick);
             position.setText("");
             i = mInfo.size();
@@ -196,6 +255,7 @@ public class TopicInformation extends AppCompatActivity {
             Log.d(TAG, "onClick: line 170 displays index at " + i);
             previous.setVisibility(View.VISIBLE);
             check.setVisibility(View.GONE);
+            learnMore.setVisibility(View.GONE);
             constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             constraintSet.constrainWidth(R.id.previous, width / 2);
@@ -225,6 +285,7 @@ public class TopicInformation extends AppCompatActivity {
             Log.d(TAG, "onClick: line 187 displays index at " + i);
             previous.setVisibility(View.VISIBLE);
             check.setVisibility(View.GONE);
+            learnMore.setVisibility(View.GONE);
             constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             constraintSet.constrainWidth(R.id.next, width / 2);
@@ -258,6 +319,7 @@ public class TopicInformation extends AppCompatActivity {
             Log.d(TAG, "onClick: line 210 displays index at " + i);
             previous.setVisibility(View.VISIBLE);
             check.setVisibility(View.GONE);
+            learnMore.setVisibility(View.GONE);
             constraintSet = new ConstraintSet();
             constraintSet.clone(constraintLayout);
             constraintSet.constrainWidth(R.id.next, width / 2);
@@ -290,6 +352,7 @@ public class TopicInformation extends AppCompatActivity {
             if (i <= 0) {
                 previous.setVisibility(View.GONE);
                 check.setVisibility(View.GONE);
+                learnMore.setVisibility(View.GONE);
                 constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 constraintSet.constrainWidth(R.id.next, ConstraintLayout.LayoutParams.MATCH_PARENT);
@@ -315,6 +378,7 @@ public class TopicInformation extends AppCompatActivity {
                 Log.d(TAG, "onClick: line 245 displays index at " + i);
                 previous.setVisibility(View.VISIBLE);
                 check.setVisibility(View.GONE);
+                learnMore.setVisibility(View.GONE);
                 constraintSet = new ConstraintSet();
                 constraintSet.clone(constraintLayout);
                 constraintSet.constrainWidth(R.id.next, width / 2);
