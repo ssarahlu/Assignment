@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_trivia);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         preferences = getSharedPreferences("preferences", MODE_PRIVATE);
         g = Global.getInstance(getApplicationContext());
@@ -106,6 +108,13 @@ public class StartTriviaActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), SelectLearningActivity.class);
+        myIntent.putExtra(EXTRA_MESSAGE, difficulty);
+        startActivityForResult(myIntent, 0);
+        return true;
     }
 
 }

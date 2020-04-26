@@ -1,5 +1,6 @@
 package com.example.assignment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ public class SelectLearningActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "difficulty";
     private String email, difficulty;
     BottomNavigationView bottomNavigation;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,9 @@ public class SelectLearningActivity extends AppCompatActivity {
         musicTrivia = findViewById(R.id.musicTrivia);
 
         Intent intent = getIntent();
-        difficulty = intent.getStringExtra(EXTRA_MESSAGE).toLowerCase();
+        if (intent.getStringExtra(EXTRA_MESSAGE) != null) {
+            difficulty = intent.getStringExtra(EXTRA_MESSAGE).toLowerCase();
+        }
 
         bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setItemIconTintList(null);
@@ -72,10 +76,37 @@ public class SelectLearningActivity extends AppCompatActivity {
                 intent.putExtra(EXTRA_MESSAGE, difficulty);
                 intent.putExtra("email", email);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Music theory selected", Toast.LENGTH_SHORT).show();
+                progressDialog = ProgressDialog.show(SelectLearningActivity.this,
+                        "Loading",
+                        "Loading music theory questions.", true);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCancelable(false);
+                progressDialog.show(); // Display Progress Dialog
 
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (true) {
+                                sleep(1000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.dismiss();
+                                    }
+                                });
+                                break;
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
             }
+
         });
+
 
         musicTrivia.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +116,32 @@ public class SelectLearningActivity extends AppCompatActivity {
                 intent.putExtra("email", email);
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Music trivia selected", Toast.LENGTH_SHORT).show();
+                progressDialog = ProgressDialog.show(SelectLearningActivity.this,
+                        "Loading",
+                        "Loading music trivia questions.", true);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCancelable(false);
+                progressDialog.show(); // Display Progress Dialog
+                Thread thread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (true) {
+                                sleep(1000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.dismiss();
+                                    }
+                                });
+                                break;
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                thread.start();
 
             }
         });
@@ -93,7 +150,7 @@ public class SelectLearningActivity extends AppCompatActivity {
     }
 
     //added back button in the toolbar
-    public boolean onOptionsItemSelected (MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), SelectQuizDifficulty.class);
         startActivityForResult(myIntent, 0);
         return true;
