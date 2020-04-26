@@ -87,7 +87,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         viewed = myDb.topicResultDao().getViewed(email, mTopic.getId());
         mStars = myDb.topicResultDao().getStars(email, mTopic.getId());
 
-        int[] totalQuestions = new int[mTopics.size()];
+        int[] totalQuestions = new int[mTopics.get(mTopics.size() - 1).getId()];
 
         for (Question q : Question.getQuestions()) {
             if (q.getTopicId() == mTopic.getId()) {

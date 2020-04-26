@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/question"
+        style="@style/Base.TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="4.5"
+        android:gravity="center"
+        android:lines="5"
+        android:padding="10dp"
+        android:text="Question goes here"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/option_A"
+        style="@android:style/TextAppearance.DeviceDefault.Widget.DropDownItem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.1"
+        android:background="@drawable/background_rounded"
+        android:gravity="center|start|center_vertical"
+        android:lines="2"
+        android:padding="10dp"
+        android:text="Option A"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/option_B"
+        style="@android:style/TextAppearance.DeviceDefault.Widget.DropDownItem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.1"
+        android:background="@drawable/background_rounded"
+        android:gravity="center|start|center_vertical"
+        android:padding="10dp"
+
+        android:text="Option B"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/option_C"
+        style="@android:style/TextAppearance.DeviceDefault.Widget.DropDownItem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.1"
+        android:background="@drawable/background_rounded"
+        android:gravity="center|start|center_vertical"
+        android:padding="10dp"
+
+        android:text="Option C"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/option_D"
+        style="@android:style/TextAppearance.DeviceDefault.Widget.DropDownItem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.1"
+        android:background="@drawable/background_rounded"
+        android:gravity="center|start|center_vertical"
+        android:padding="10dp"
+
+        android:text="Option D"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/skip"
+        style="@android:style/TextAppearance.DeviceDefault.Small"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1.1"
+        android:background="@drawable/background_rounded"
+        android:gravity="center"
+        android:text="SKIP"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+</LinearLayout>
